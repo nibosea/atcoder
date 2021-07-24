@@ -1,0 +1,6 @@
+(defun counttimes (c L)
+    (setq L2 (remove c L))
+	(setq len1 (length L))
+	(setq len2 (length L2))
+    (- len1 len2) 
+    )

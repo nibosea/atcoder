@@ -1,0 +1,8 @@
+(defun my-member2 (%atm %lst)
+  (do ()
+	( (or (null %lst)
+		  (eq %atm (car %lst)))
+	 %lst)
+	(setq %lst (cdr %lst))
+	)
+  )

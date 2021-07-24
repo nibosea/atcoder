@@ -1,0 +1,7 @@
+;2~Nのリストが欲しい
+(defun makelst (%now %num )
+	(cond ( (eq %now (+ %num 1)) '())
+		(t (cons %now (makelst (+ %now 1) %num))
+		)
+	)
+	)

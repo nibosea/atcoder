@@ -1,0 +1,9 @@
+(defun triangle-area2
+	(let (('num1 0)
+	 ('num2 0)
+	 )
+	(setq num1 (read))
+	(setq num2 (read))
+	(* num1 num2 1/2)
+	)
+	)

@@ -28,10 +28,5 @@ int main()
 {
 	cin.tie(0);
 	ios_base::sync_with_stdio(false);
-	rep(j,1000){
-		rep(i,26){
-			char c = 'a' + i;
-			cout << c << flush;
-		}
-	}
 }
+

@@ -1,4 +1,0 @@
-(defun listposition (c L)
-    (setq L2 (member c L))
-    (length L2)
-    )

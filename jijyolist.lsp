@@ -1,5 +1,0 @@
-(defun jijyolist (%lst1 %lst2)
-  (cond ( (null %lst1) '() )
-		(t (cons (* (car %lst1) (car %lst2)) (jijyolist (cdr %lst1) (cdr %lst2))))
-		)
-  )

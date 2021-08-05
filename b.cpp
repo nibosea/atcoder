@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-using namespace std;
 
-using ll = long long;
+using namespace std;
+using ll =long long;
 typedef pair<ll,ll> P;
 #define SORT(a) sort((a).begin(),(a).end())
 #define REV(a) reverse((a).begin(),(a).end())
@@ -26,22 +26,23 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	vector<char> cho(8);
-	string tmp = "chokudai";
-	rep(i,8) cho[i] = tmp[i];
-	vector<ll> cnt(8,0);
-	string s;
-	cin >> s;
-	rep(i,s.size()){
-		rep(j,8){
-			if(s[i] == cho[j]){
-				if(j == 0){
-			} else {
-					cnt[j] += cnt[j-1];
-					cnt[j] %= mod;
-				}
-			}
+	cin.tie(0);
+	ios_base::sync_with_stdio(false);
+	string x;
+	cin >> x;
+	bool flag = true;
+	rep(i,3){
+		if((x[i]-'0' + 1)%10 == x[i+1]-'0'){
+		} else {
+			flag = false;
 		}
 	}
-	cout << cnt[7] << endl;
+	x.erase(unique(x.begin(),x.end()),x.end());
+	debug(x);
+	if(x.size() == 1 || flag){
+		puts("Weak");
+		return 0;
+	} else {
+		puts("Strong");
+	}
 }

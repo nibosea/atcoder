@@ -8,7 +8,6 @@ typedef pair<ll,ll> P;
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
 #define debug(x)  cerr << #x << " = " << (x) << endl;
-#define fore(i, a) for(auto &i: a)
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -29,5 +28,9 @@ int main()
 {
 	cin.tie(0);
 	ios_base::sync_with_stdio(false);
+	int n;
+	cin >> n;
+	vector<ll> a(n), b(n);
+	rep(i,n) cin >> a[i];
+	rep(i,n) cin >> b[i];
 }
-

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-using namespace std;
 
-using ll = long long;
+using namespace std;
+using ll =long long;
 typedef pair<ll,ll> P;
 #define SORT(a) sort((a).begin(),(a).end())
 #define REV(a) reverse((a).begin(),(a).end())
@@ -29,42 +29,28 @@ int main()
 {
 	cin.tie(0);
 	ios_base::sync_with_stdio(false);
-	int n, m; 
-	cin >> n >> m; 
-	map<P,ll> cost;
-	rep(i,m){
-		int a, b, c;
-		cin >> a >> b >> c;
-		--a, --b;
-		cost[{a,b}] = c;
+	int n;
+	cin >> n;
+	string s;
+	cin >> s;
+	vector<int> a(n+1);
+	rep(i,n+1) cin >> a[i];
+	int ans = 10'000;
+	rep(i,n){
+		chmin(ans, abs(a[i+1]-a[i]));
 	}
-	vector<vector<ll>> ans(n+1,vector<ll> (n+1,inf));
-	ll sum = 0;
-	rep(s,n){
-		rep(t,n){
-			if(s==t) ans[s][t] = 0;
-			if(cost[{s,t}]) ans[s][t] = cost[{s,t}];
-			else ans[s][t] = inf;
-			if(ans[s][t] == inf) sum += 0;
-			else sum += ans[s][t];
+	cout << ans << endl;
+	int tmp = ans;
+	rep(i,ans-1){
+		rep(j,n+1){
+			cout << a[j]/tmp << " ";
+			a[j] -= a[j]/tmp;
 		}
+		tmp--;
+		cout << endl;
 	}
-	debug(sum);
-	For(k,1,n){
-		vector<vector<ll>> tmp(n+1,vector<ll> (n+1,0));
-		rep(s,n){
-			rep(t,n){
-				if( (ans[s][k+1] == inf || ans[k+1][t] == inf) && ans[s][t] == inf){
-					tmp[s][t] = 0;
-				} else {
-					tmp[s][t] = ans[s][k+1] + ans[k+1][t];
-					chmin(tmp[s][t], ans[s][t]);
-					sum += tmp[s][t];
-				}
-			}
-		}
-		swap(tmp,ans);
-		debug(sum);
+	rep(j,n+1){
+		cout << a[j]<< " ";
 	}
-	cout << sum << endl;
+	cout << endl;
 }

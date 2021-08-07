@@ -28,29 +28,25 @@ int main()
 {
 	cin.tie(0);
 	ios_base::sync_with_stdio(false);
-<<<<<<< HEAD
-	int n;
-	cin >> n;
-	vector<ll> a(n), b(n);
+	int n, m;	
+	cin >> n >> m;	
+	vector<int> a(n);
 	rep(i,n) cin >> a[i];
-	rep(i,n) cin >> b[i];
-=======
-	string x;
-	cin >> x;
-	bool flag = true;
-	rep(i,3){
-		if((x[i]-'0' + 1)%10 == x[i+1]-'0'){
-		} else {
-			flag = false;
+	vector<int> b(m);
+	rep(i,m) cin >> b[i];
+	SORT(a), SORT(b);
+
+	int ans = inf;
+	rep(i,n){
+		// a[i]に対して，a[i]以上となる最小のjを見つける
+		int ng = -1, ok = m - 1;
+		while(ok - ng > 1) {
+			int mid = (ok + ng) / 2;
+			if(b[mid] >= a[i]) ok = mid;
+			else ng = mid;
 		}
+		chmin(ans, abs(a[i]-b[ok]));
+		if(ok > 0) chmin(ans,abs(a[i]-b[ok-1]));
 	}
-	x.erase(unique(x.begin(),x.end()),x.end());
-	debug(x);
-	if(x.size() == 1 || flag){
-		puts("Weak");
-		return 0;
-	} else {
-		puts("Strong");
-	}
->>>>>>> c6ec2ec2c6a3af6a417a3f688a484e837f234d1e
+	cout << ans << endl;
 }

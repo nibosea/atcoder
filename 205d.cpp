@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-using ll =long long;
+
+using ll = long long;
 typedef pair<ll,ll> P;
 #define SORT(a) sort((a).begin(),(a).end())
 #define REV(a) reverse((a).begin(),(a).end())
@@ -25,32 +25,24 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+
 int main()
 {
-	cin.tie(0);
-	ios_base::sync_with_stdio(false);
-	int n;
-	cin >> n;
-	string s;
-	cin >> s;
-	vector<int> a(n+1);
-	rep(i,n+1) cin >> a[i];
-	int ans = 10'000;
-	rep(i,n){
-		chmin(ans, abs(a[i+1]-a[i]));
-	}
-	cout << ans << endl;
-	int tmp = ans;
-	rep(i,ans-1){
-		rep(j,n+1){
-			cout << a[j]/tmp << " ";
-			a[j] -= a[j]/tmp;
+	int n, q;
+	cin >> n >> q;
+	vector<ll> a(n);
+	rep(i,n) cin >> a[i];
+	rep(i,q){
+		ll x;
+		cin >> x;
+		// xより小さい数が何個あるかを調べる
+		ll ok = 0, ng = n;
+		while(ng - ok > 1){
+			ll mid = (ok + ng) / 2;
+			if(a[mid] <= x) ok = mid+1;
+			else ng = mid;
 		}
-		tmp--;
-		cout << endl;
+		// a[ok]は，ｘ以下
+		debug(ok);
 	}
-	rep(j,n+1){
-		cout << a[j]<< " ";
-	}
-	cout << endl;
 }

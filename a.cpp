@@ -27,7 +27,6 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-<<<<<<< HEAD
 	cin.tie(0);
 	ios_base::sync_with_stdio(false);
 	int n, m; 
@@ -69,24 +68,3 @@ int main()
 	}
 	cout << sum << endl;
 }
-=======
-	vector<char> cho(8);
-	string tmp = "chokudai";
-	rep(i,8) cho[i] = tmp[i];
-	vector<ll> cnt(8,0);
-	string s;
-	cin >> s;
-	rep(i,s.size()){
-		rep(j,8){
-			if(s[i] == cho[j]){
-				if(j == 0){
-			} else {
-					cnt[j] += cnt[j-1];
-					cnt[j] %= mod;
-				}
-			}
-		}
-	}
-	cout << cnt[7] << endl;
-}
->>>>>>> c6ec2ec2c6a3af6a417a3f688a484e837f234d1e

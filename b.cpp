@@ -25,30 +25,12 @@ struct UnionFind {
 };
 
 int main(){
-	ll a, b;
-	cin >> a >> b;
-	ll n = b - a + 1;
-	UnionFind uf(n);
-	for(int i = 0; i < n; i++) {
-		for(int j = i+1; j < n; j++){
-			for(int k = 2; k <= n; k++){
-				//iとgがkで互いに割り切れるかどうか
-				ll I = i + a, J = j + a;
-				if(!(I%k) && !(J%k)){
-					uf.unite(i,j);
-					jkkjkjkbreak;
-				}
-			}
+	for(int i = 2; i <= 72; i++){
+		bool p = true;
+		for(int j = 2; j * j <= i; j++){
+			if(i % j == 0) p = false;
 		}
+		if(p) cout << i << " ";
 	}
-	set<int> st;
-	ll ans = 1;
-	for(int i = 0; i < n; i++){
-		int oya = uf.find(i);
-		if(st.find(oya) == st.end()){
-			ans *= uf.size(oya) + 1;
-			st.insert(oya);
-		}
-	}
-	cout << ans << endl;
+	cout << endl;
 }

@@ -44,8 +44,39 @@ int main()
 	}
 	int psz = prime.size();
 	// dp[i][j] := a+i-1まで見たときに，bitがjであるような組み合わせが何通りあるか．
+	dp[0][0] = 1;
 	rep(i,n){
+		// dp[i][j]からdp[i][nbit]の遷移を作成する
 		ll num = a + i;
+		//debug(num);
+		rep(j,1<<psz){
+			// 先ず，numを取らないことでdp[i+1][j]への遷移が可能
+			dp[i+1][j] += dp[i][j];
+			bool flag = true;
+			bitset<12> tmp(j);
+			rep(k,psz){
+				// num がprime[k]で割れるとき，tmpのkビットが立っていたら使えない．
+				if(num % prime[k] == 0 && tmp.test(k)){
+					flag = false;
+					break;
+				}
+				if(0 == num % prime[k]) tmp.set(k);
+				//if(num % prime[k])
+				//if(0 == num % prime[k]) sum += (1<<k);
+			}
+			if(flag){
+				// num取るという選択肢が生れる
+				dp[i+1][tmp.to_ullong()] += dp[i][j];
+			}
+		}
+		//rep(j,(1<<psz)){
+		//	cout << dp[i+1][j] << " ";
+		//}
+		//cout << endl;
 	}
-
+	ll ans = 0;
+	rep(i,(1<<psz)){
+		ans += dp[n][i];
+	}
+	cout << ans << endl;
 }

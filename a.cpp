@@ -36,44 +36,5 @@ int main()
 	vector<int> r(n);
 	rep(i,n) cin >> r[i];
 	rep(i,n) r[i]--;
-	rep(i,N)rep(j,N){
-		if(i == j) dist[i][j] = 0;
-		else dist[i][j] = INF;
-	}
-	rep(i,m){
-		int a, b, c;
-		cin >> a >> b >> c;
-		--a, --b;
-		dist[a][b] = c;
-		dist[b][a] = c;
-	}
-	rep(k,N) rep(i,N) rep(j,N) chmin(dist[i][j], dist[i][k] + dist[k][j]);
-	rep(i,(1<<n)){
-		rep(j,10){
-			dp[i][j] = INF;
-		}
-	}
-	rep(j,n){
-		dp[0][j] = 0;
-	}
-	for(int tmp = 0; tmp < (1 << n); tmp++){
-		rep(j,n){
-			//dp[tmp][j] からの遷移を考える
-			// k へ移動する r[j] -> r[k];
-			rep(k,n){
-				chmin(dp[tmp|(1<<k)][k], dp[tmp][j] + dist[r[j]][r[k]]);
-				// r[j] -> r[k]
-			}
-		}
-	}
-	ll ans = INF;
-	for(int tmp = 0; tmp < (1 << n); tmp++){
-		rep(j,n){
-			//printf("dp[%d][%d] = %lld\n", tmp,j, dp[tmp][j]);
-		}
-	}
-	rep(j,n){
-		chmin(ans, dp[(1<<n)-1][j]);
-	}
 	cout << ans << endl;
 }

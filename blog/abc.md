@@ -5,7 +5,7 @@
 - [アルゴリズム,データ構造を学べるサイトまとめ](https://iloveconviniboshi.hatenablog.com/entry/2020/03/04/192631)
 
 ## 更新情報
-2020/06/06
+2021/08/08
 ## 前書き
 
 AtCoderで解いていった問題の解き方（簡易版）をまとめていく
@@ -2015,4 +2015,28 @@ mod が素数じゃない時は,逆元が存在しないときもあるらしい
 K以下の整数の中で,4か9を含んでしまう整数は何通りありますか?<br>
 桁DPを頑張る.良かったら記事見て
 
-## [2021年8月6日解いた問題]()
+## [2021年8月8日解いた問題](https://iloveconviniboshi.hatenablog.com/entry/2021/08/08/050314)
+### [AGC053 A- ><again](https://atcoder.jp/contests/agc053/tasks/agc053_a)
+[良い非負整数列,整数列の分解]
+
+## [2021年8月10日解いた問題](https://iloveconviniboshi.hatenablog.com/entry/2021/08/08/050314)
+### [COLOCON -Colopl programming contest 2018- C- すぬけそだてーーごはんーー ](https://atcoder.jp/contests/colopl2018-qual/tasks/colopl2018_qual_c)
+
+
+[嬉しい,素数の個数,全探索,bitDP,UnionFindではない]<br>
+## [2021年8月11日解いた問題](https://iloveconviniboshi.hatenablog.com/entry/2021/08/12/202621)
+### [ABC195 F- Coprime Present](https://atcoder.jp/contests/abc195/tasks/abc195_f)
+
+[嬉しい,[素数](http://d.hatena.ne.jp/keyword/%C1%C7%BF%F4)の個数,bitDP,UnionFindではない]<br>
+
+昨日やった[すぬけそだてーーごはんーー](https://atcoder.jp/contests/colopl2018-qual/tasks/colopl2018_qual_c)の制約が厳しい版です(情報提供・あさか，こいつは本番で通した．犯罪だね)．   
+### [ABC073 D- Joisino's travel](https://atcoder.jp/contests/abc073/tasks/abc073_d)
+
+[ワーシャるフロイド法,next_permutation,bitDPによる巡回セールスマンっぽい]<br>
+
+
+### [ABC180 E- **E - Traveling Salesman among Aerial Cities**](https://atcoder.jp/contests/abc180/tasks/abc180_e)
+
+[ワーシャルフロイド法,bitDP,巡回セールスマン]<br>
+
+Joisino's travelのように，next_permutationを用いていたら実行時間が間に合わないっすね．17の階乗は，10を8回以上かけているのでどう考えても間に合わないです．<br>

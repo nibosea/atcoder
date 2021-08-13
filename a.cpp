@@ -25,53 +25,55 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-ll dp[75][1<<20];
+ll dist[205][205];
+ll dp[(1<<10)][10];
 int main()
 {
 	cin.tie(0);
 	ios_base::sync_with_stdio(false);
-	ll a, b;
-	cin >> a >> b;
-	ll n = b - a + 1; // a ~ bの数字はb-a+1個
-	//2~n-1の素数を管理すれば良い．
-	vector<int> prime(0);
-	for(int i = 2; i < n; i++){
-		bool p = true;
-		for(int j = 2; j * j <= i; j++){
-			if(i%j == 0) p = false;
-		}
-		if(p) prime.push_back(i);
+	int N, m, n;
+	cin >> N >> m >> n;
+	vector<int> r(n);
+	rep(i,n) cin >> r[i];
+	rep(i,n) r[i]--;
+	rep(i,N)rep(j,N){
+		if(i == j) dist[i][j] = 0;
+		else dist[i][j] = INF;
 	}
-	int psz = prime.size();
-	// dp[i][j] := a+i-1まで見たときに，bitがjであるような組み合わせが何通りあるか．
-	dp[0][0] = 1;
-	rep(i,n){
-		// dp[i][j]からdp[i][nbit]の遷移を作成する
-		ll num = a + i;
-		rep(j,1<<psz){
-			// 先ず，numを取らないことでdp[i+1][j]への遷移が可能
-			dp[i+1][j] += dp[i][j];
-			
-			//bool flag = true;
-			//bitset<20> tmp(j);
-			//ll sum = 0;
-			//rep(k,psz){
-			//	// num がprime[k]で割れるとき，tmpのkビットが立っていたら使えない．
-			//	if(num % prime[k] == 0 && tmp.test(k)){
-			//		flag = false;
-			//		break;
-			//	}
-			//	if(0 == num % prime[k]) sum += (1<<k);
-			//}
-			//if(flag){
-			//	// num取るという選択肢が生れる
-			//	dp[i+1][sum | j] += dp[i][j];
-			//}
+	rep(i,m){
+		int a, b, c;
+		cin >> a >> b >> c;
+		--a, --b;
+		dist[a][b] = c;
+		dist[b][a] = c;
+	}
+	rep(k,N) rep(i,N) rep(j,N) chmin(dist[i][j], dist[i][k] + dist[k][j]);
+	rep(i,(1<<n)){
+		rep(j,10){
+			dp[i][j] = INF;
 		}
 	}
-	ll ans = 0;
-	rep(i,(1<<psz)){
-		ans += dp[n][i];
+	rep(j,n){
+		dp[0][j] = 0;
+	}
+	for(int tmp = 0; tmp < (1 << n); tmp++){
+		rep(j,n){
+			//dp[tmp][j] からの遷移を考える
+			// k へ移動する r[j] -> r[k];
+			rep(k,n){
+				chmin(dp[tmp|(1<<k)][k], dp[tmp][j] + dist[r[j]][r[k]]);
+				// r[j] -> r[k]
+			}
+		}
+	}
+	ll ans = INF;
+	for(int tmp = 0; tmp < (1 << n); tmp++){
+		rep(j,n){
+			//printf("dp[%d][%d] = %lld\n", tmp,j, dp[tmp][j]);
+		}
+	}
+	rep(j,n){
+		chmin(ans, dp[(1<<n)-1][j]);
 	}
 	cout << ans << endl;
 }

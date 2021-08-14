@@ -25,16 +25,20 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-ll dist[205][205];
-ll dp[(1<<10)][10];
 int main()
 {
-	cin.tie(0);
-	ios_base::sync_with_stdio(false);
-	int N, m, n;
-	cin >> N >> m >> n;
-	vector<int> r(n);
-	rep(i,n) cin >> r[i];
-	rep(i,n) r[i]--;
-	cout << ans << endl;
+	ll n;	
+	cin >> n;	
+	vector<ll> s(n);
+	rep(i,n) cin >> s[i];
+	vector<ll> t(n);
+	rep(i,n) cin >> t[i];
+	ll tmp = t[0];
+	rep(i,n){
+		if(t[i] <= tmp){
+			tmp = t[i];
+		}
+		cout << tmp << endl;
+		tmp += s[i];
+	}
 }

@@ -13,8 +13,6 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
-void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
-void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
 const int dy[] = {0,0,1,-1};
 const int dx[] = {1,-1,0,0};
@@ -26,24 +24,21 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	int h, w, n;
-	cin >> h >> w >> n;
-	// A Bをそれぞれ座標圧縮するだけ
-	vector<int> A(n), B(n);
-	rep(i,n){
-		cin >> A[i] >> B[i];
+	string s; int k; cin >> s >> k;
+	vector<char> retu(s.size());
+	rep(i,s.size()){
+		retu[i] = s[i];
 	}
-	vector<int> AA = A, BB = B;
-	auto leftunique = [&](vector<int> x){
-		sort(x.begin(),x.end());
-		x.erase(unique(x.begin(),x.end()),x.end());
-		return x;
-	};
-	AA = leftunique(AA), BB = leftunique(BB);
-	for(int i = 0; i < n; i++){
-		int ans = lower_bound(AA.begin(), AA.end(), A[i]) - AA.begin();
-		int ans2 = lower_bound(BB.begin(), BB.end(), B[i]) - BB.begin();
-		++ans, ++ans2;
-		cout << ans << " " << ans2 << endl;
-	}
+	SORT(retu);
+	int cnt=1;
+	do {
+		if(cnt == k){
+			rep(i,s.size()){
+				cout << retu[i];
+			}
+			cout << endl;
+			return 0;
+		}
+		cnt++;
+	} while(next_permutation(retu.begin(),retu.end()));
 }

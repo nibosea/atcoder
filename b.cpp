@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-using ll =long long;
+using ll = unsigned long long;
 typedef tuple<ll,ll,ll> T;
 #define SORT(a) sort((a).begin(),(a).end())
 #define REV(a) reverse((a).begin(),(a).end())
@@ -29,46 +29,13 @@ ll dist[20][20];
 ll dp[(1<<20)][20];
 int main()
 {
-	cin.tie(0);
-	ios_base::sync_with_stdio(false);
-	int n;
+	ll n;
 	cin >> n;
-	vector<T> x(n);
-	rep(i,n){
-		int a, y, z;
-		cin >> a >> y >> z;
-		x[i] = {a,y,z};
+	ll cnt = 0;
+	ll k = 1;
+	while(2*k <= n){
+		k *= 2;
+		cnt++;
 	}
-	rep(i,n){
-		rep(j,n){
-			int ix, iy, iz;
-			int jx, jy, jz;
-			tie(ix,iy,iz) = x[i];
-			tie(jx,jy,jz) = x[j];
-			ll tmp = abs(ix - jx) + abs(iy - jy);
-			tmp += max(0, jz - iz);
-			dist[i][j] = tmp;
-		}
-	}
-	rep(i,n) dist[i][i] = 0;
-	rep(k,n) rep(i,n) rep(j,n) chmin(dist[i][j], dist[i][k] + dist[k][j]);
-
-	// DP 作るぞ
-	rep(i,(1<<n))rep(j,n) dp[i][j] = INF;
-	dp[0][0] = 0; 
-
-	for(int tmp = 0; tmp < (1 << n); tmp++){
-		rep(i,n){
-			// dp[tmp][i] から移動する
-			rep(j,n){
-				// i -> j
-				chmin(dp[tmp|(1<<j)][j], dp[tmp][i] + dist[i][j]);
-			}
-		}
-	}
-	ll ans = INF;
-	rep(i,n){
-		chmin(ans, dp[(1<<n)-1][i] + dist[i][0]);
-	}
-	cout << ans << endl;
+	cout << cnt << endl;
 }

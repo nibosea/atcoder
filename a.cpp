@@ -19,22 +19,44 @@ void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
 const int dy[] = {0,0,1,-1};
 const int dx[] = {1,-1,0,0};
-const ll mod = 1e9+7;
 const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-ll dist[205][205];
-ll dp[(1<<10)][10];
+ll dp[1005][1<<10][11]; // i文字目まで、bitがj,最後に見たのはk
 int main()
 {
-	cin.tie(0);
-	ios_base::sync_with_stdio(false);
-	int N, m, n;
-	cin >> N >> m >> n;
-	vector<int> r(n);
-	rep(i,n) cin >> r[i];
-	rep(i,n) r[i]--;
-	cout << ans << endl;
+    int n;
+    string s;
+    cin >> n >> s;
+    vector<int> a(n);
+    rep(i,n) a[i] = (s[i] - 'A' + 1);
+    dp[0][0][0] = 1;
+    rep(i,n){
+        // a[i] を使うことを考える。
+        int num = a[i];
+        rep(j,(1<<10)){
+            rep(k,11){
+                // dp[i][j][k] から a[i]が使えるということは、a[i]がnumであるとき、bitのnumが立っていない。
+                // もしくは、k == numであれば良い。 k==0でもおｋ
+                // 取らないという選択肢はいつでも取れる bitは変わらん
+                dp[i+1][j][k] += dp[i][j][k];
+                dp[i+1][j][k] %= MOD;
+                if( (j&(1<<num-1)) == 0||num == k||k == 0){
+                    //numを取るとき。
+                    dp[i+1][j|(1<<(num-1))][num] += dp[i][j][k];
+                    dp[i+1][j|(1<<(num-1))][num] %= MOD;
+                }
+            }
+        }
+    }
+    ll ans = 0;
+        rep(j,(1<<10)){
+            For(k,1,11){
+                ans += dp[n][j][k];
+                ans %= MOD;
+            }
+        }
+    cout << ans << endl;
 }

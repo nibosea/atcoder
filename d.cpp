@@ -27,35 +27,35 @@ const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
 int main()
 {
-    int n, m;
-    cin >> n >> m;
-    rep(i,m){
-        int x, y;
-        cin >> x >> y;
-        x--, y--;
-        to[x].push_back(y);
-        to[y].push_back(x);
-    }
-    queue<int> q;
-    q.push(0);
-    vector<int> done(n,0);
-    done[0] = 1;
-    vector<P> ans(n,P(0,INF));
-    ans[0] = P(1,0);
-    while(!q.empty()){
-        int v = q.front(); q.pop();
-        int now = ans[v].second; // vまでの手数
-        for(auto nv: to[v]){
-            // now + 1とnvまでの手数を確認する
-            if(now+1 > ans[nv].second) continue;
-            if(now+1 == ans[nv].second){
-            }
-            else {
-                // 手数が短くなる
-                ans[nv] = P(ans[v].first,now+1);
-                q.push(nv);
+    int n,k; cin >> n >> k;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
+    vector<bool> ans(k+1,true); ans[0] = false;
+    rep(i,n){
+        for(int j = 2; j * j <= k; j++){
+            if(a[i] < j) continue;
+            if(!ans[j])continue;
+            if(a[i] % j == 0){
+                int tmp = j;
+                while(tmp <= k){
+                    ans[tmp] = false;
+                    tmp+=j;
+                }
             }
         }
+        // k が素数の場合
+        if(__gcd(a[i],k) != 1){
+            ans[k] = false;
+        }
+        if(a[i] <= k)ans[a[i]] = false;
     }
-    cout << ans[n-1].first << endl;
+    ans[1] = true;
+    int num = 0;
+    rep(i,k+1){
+        if(ans[i]) num++;
+    }
+    cout << num << endl;
+    rep(i,k+1){
+        if(ans[i]) cout << i << endl;
+    }
 }

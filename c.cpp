@@ -8,11 +8,14 @@ typedef pair<ll,ll> P;
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
 #define debug(x)  cerr << #x << " = " << (x) << endl;
+#define fore(i, a) for(auto &i: a)
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
+void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
+void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
 const int dy[] = {0,0,1,-1};
 const int dx[] = {1,-1,0,0};
@@ -24,21 +27,4 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	string s; int k; cin >> s >> k;
-	vector<char> retu(s.size());
-	rep(i,s.size()){
-		retu[i] = s[i];
-	}
-	SORT(retu);
-	int cnt=1;
-	do {
-		if(cnt == k){
-			rep(i,s.size()){
-				cout << retu[i];
-			}
-			cout << endl;
-			return 0;
-		}
-		cnt++;
-	} while(next_permutation(retu.begin(),retu.end()));
 }

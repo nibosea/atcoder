@@ -19,44 +19,42 @@ void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
 const int dy[] = {0,0,1,-1};
 const int dx[] = {1,-1,0,0};
+const ll mod = 1e9+7;
 const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
-//Write From this Line
-ll dp[1005][1<<10][11]; // i文字目まで、bitがj,最後に見たのはk
+//Write From this Lijjjjjjjjjne
 int main()
 {
-    int n;
-    string s;
-    cin >> n >> s;
+    int n, m; cin >> n >> m;
     vector<int> a(n);
-    rep(i,n) a[i] = (s[i] - 'A' + 1);
-    dp[0][0][0] = 1;
-    rep(i,n){
-        // a[i] を使うことを考える。
-        int num = a[i];
-        rep(j,(1<<10)){
-            rep(k,11){
-                // dp[i][j][k] から a[i]が使えるということは、a[i]がnumであるとき、bitのnumが立っていない。
-                // もしくは、k == numであれば良い。 k==0でもおｋ
-                // 取らないという選択肢はいつでも取れる bitは変わらん
-                dp[i+1][j][k] += dp[i][j][k];
-                dp[i+1][j][k] %= MOD;
-                if( (j&(1<<num-1)) == 0||num == k||k == 0){
-                    //numを取るとき。
-                    dp[i+1][j|(1<<(num-1))][num] += dp[i][j][k];
-                    dp[i+1][j|(1<<(num-1))][num] %= MOD;
-                }
-            }
+    rep(i,n) cin >> a[i];
+    vector<int> b(m);
+    rep(i,m) cin >> b[i];
+    int dist = inf;
+    rep(i,n-1){
+        if(a[1+i] != a[0] || a[n-1-i] != a[0]){
+            dist = i+1;
+            break;
         }
     }
-    ll ans = 0;
-        rep(j,(1<<10)){
-            For(k,1,11){
-                ans += dp[n][j][k];
-                ans %= MOD;
+    int ans = 0;
+    bool flag = false; // distの移動をしたかどうか
+    int now = a[0];
+    rep(i,m){
+        if(now != b[i]){
+            if(flag) ans++;
+            else if(dist == inf){
+                cout << -1 << endl;
+                return 0;
+            } else {
+                ans += dist;
+                flag = true;
             }
         }
+        now = b[i];
+        ans++; // 実際に0,1を取る操作
+    }
     cout << ans << endl;
 }

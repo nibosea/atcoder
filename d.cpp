@@ -1,13 +1,14 @@
 #include <bits/stdc++.h>
-using namespace std;
 
-using ll = long long;
+using namespace std;
+using ll =long long;
 typedef pair<ll,ll> P;
 #define SORT(a) sort((a).begin(),(a).end())
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
 #define debug(x)  cerr << #x << " = " << (x) << endl;
+#define fore(i, a) for(auto &i: a)
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -24,38 +25,29 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-vector<int> to[200'005];
 int main()
 {
-    int n,k; cin >> n >> k;
-    vector<int> a(n);
-    rep(i,n) cin >> a[i];
-    vector<bool> ans(k+1,true); ans[0] = false;
+	ll n;	
+	cin >> n;	
+	vector<ll> s(n);
+	rep(i,n) cin >> s[i];
+	vector<ll> t(n);
+	rep(i,n) cin >> t[i];
+	ll tmp = t[0];
+    vector<ll> ans(n,INF);
+	rep(i,n){
+		if(t[i] <= tmp){
+			tmp = t[i];
+		}
+        ans[i] = tmp;
+		tmp += s[i];
+	}
+    tmp = ans[n-1] + s[n-1];
     rep(i,n){
-        for(int j = 2; j * j <= k; j++){
-            if(a[i] < j) continue;
-            if(!ans[j])continue;
-            if(a[i] % j == 0){
-                int tmp = j;
-                while(tmp <= k){
-                    ans[tmp] = false;
-                    tmp+=j;
-                }
-            }
-        }
-        // k が素数の場合
-        if(__gcd(a[i],k) != 1){
-            ans[k] = false;
-        }
-        if(a[i] <= k)ans[a[i]] = false;
+        chmin(ans[i], tmp);
+        tmp += s[i];
     }
-    ans[1] = true;
-    int num = 0;
-    rep(i,k+1){
-        if(ans[i]) num++;
-    }
-    cout << num << endl;
-    rep(i,k+1){
-        if(ans[i]) cout << i << endl;
+    rep(i,n){
+        cout << ans[i] << endl;
     }
 }

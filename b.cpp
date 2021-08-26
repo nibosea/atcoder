@@ -19,6 +19,7 @@ void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
 const ll MOD = 998244353;
 //Write From this Line
+ll t;
 ll n;
 vector<P> p;
 void input(){
@@ -27,34 +28,45 @@ void input(){
     rep(i,n){
         cin >> p[i].first >> p[i].second;
     }
-    SORT(p);
-    //rep(i,n){
-    //    printf("(%lld, %lld)\n", p[i].first, p[i].second);
-    //}
 }
 int main()
 {
-    input();
-    ll ok = 0, ng = 1e9;
-    while(ng - ok > 1){
-        ll k =(ok + ng) / 2;
-        queue<P> q;
-        ll M = -1;
-        ll m = 1e9+5;
-        bool flag = false;
+    cin >> t;
+    while(t--){
+        input();
+        map<int,int> L, R;
         rep(i,n){
-            while(!q.empty() && p[i].first - q.front().first >= k){
-                ll x, y;
-                tie(x,y) = q.front(); q.pop();
-                chmax(M,y);
-                chmin(m,y);
-            }
-            if( M-p[i].second >= k) flag = true;
-            if(p[i].second-m >= k) flag = true;
-            q.push(p[i]);
+            L[p[i].first] ++;
+            R[p[i].first] ++;
         }
-        if(flag) ok = k;
-        else ng = k;
+        queue<int> ql, qr;
+        for(auto x:L) ql.push(x.first);
+        for(auto x:R) qr.push(x.first);
+        for(auto x:L){
+            //printf("(L, num) = (%d,%d)\n",x.first,x.second);
+        }
+        int have = 0;
+        int pre = 0;
+        int sum = 0;
+        int nes = 0;; // 捨てるべき個数の合計
+        bool flag = true;
+        while(!qr.empty()){
+            while(!ql.empty() && qr.front() >= ql.front()){
+                //持てるだけ持つ。
+                have += L[ql.front()]; ql.pop();
+            }
+            //debug(have);
+            int end = qr.front(); // endで捨て処理をおこなう。
+            qr.pop();
+            // end-pre個捨てることが出来る
+            nes += R[end];
+            int sute = min(have, end-pre);
+            have -= sute;
+            sum += sute; // 捨てた個数の合計
+            pre = end;
+            if(nes > sum) flag = false;
+        }
+        if(flag) coY();
+        else coN();
     }
-    cout << ok << endl;
 }

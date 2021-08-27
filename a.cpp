@@ -1,32 +1,48 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
-vector<vector<int>> G;
-vector<int> ans;
+const int MOD = 1000000007;
 
-void dfs(int crr, int pre){
-	ans.push_back(crr);
-	for(int nxt:G[crr])if(nxt != pre){
-		dfs(nxt,crr);
-		ans.push_back(crr);
-	}
+// res[i][c] := i 文字目以降で最初に文字 c が登場する index (存在しないときは n)
+vector<vector<int> > calcNext(const string &S) {
+    int n = (int)S.size();
+    vector<vector<int> > res(n+1, vector<int>(26, n));
+    for (int i = n-1; i >= 0; --i) {
+        for (int j = 0; j < 26; ++j) res[i][j] = res[i+1][j];
+        res[i][S[i]-'a'] = i;
+    }
+    return res;
 }
 
-int main(){
-	int N;
-	cin >> N;
-	G.resize(N+1);
-	for(int i=0;i<N-1;i++){
-		int a,b;
-		cin >> a >> b;
-		G[a].push_back(b);
-		G[b].push_back(a);
-	}
-	for(int i=1; i<=N; i++) sort(G[i].begin(), G[i].end());
+// mod 1000000007 の世界で a += b する関数
+void add(long long &a, long long b) {
+    a += b;
+    if (a >= MOD) a -= MOD;
+}
 
-	dfs(1,-1);
-	for(int i =0;i<ans.size();i++){
-		if(i>0)cout << ' ';
-		cout << ans[i];
-	}
+int main() {
+    // 入力
+    string S; cin >> S;
+    int n = (int)S.size();
+
+    // 前処理配列
+    vector<vector<int> > next = calcNext(S);
+
+    // DP
+    vector<long long> dp(n+1, 0);
+    dp[0] = 1; // 初期化、空文字列 "" に対応
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < 26; ++j) {
+            if (next[i][j] >= n) continue; // 次の文字 j がもうない場合はスルー
+            add(dp[next[i][j] + 1], dp[i]);
+        }
+    }
+
+    // 集計
+    long long res = 0;
+    for (int i = 0; i <= n; ++i) add(res, dp[i]);
+
+    cout << res << endl;
 }

@@ -26,14 +26,26 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-    ll n, k;
-    cin >> n >> k;
-    while(k--){
-        if(n % 200 == 0) n /= 200;
-        else {
-            n *= 1000;
-            n += 200;
+    string s;
+    cin >> s;
+    bool flag = true;
+    string x="";
+    string y="";
+    rep(i,s.size()){
+        if(flag){
+            if(s[i] == '.'){
+                flag = false;
+            } else {
+                x += s[i];
+            }
+        } else {
+             y += s[i];
         }
     }
-    cout << n << endl;
+    int X = stoi(x);
+    int Y = stoi(y);
+    cout << x;
+    if(Y <= 2) cout << "-\n";
+    else if(Y <= 6) cout << "\n";
+    else if(Y <= 9) cout << "+\n";
 }

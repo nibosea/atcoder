@@ -1,36 +1,42 @@
 #include <bits/stdc++.h>
-using namespace std;
-#define rep(i,n) for (int i = 0; i < (n); ++i)
-using P = pair<int,int>;
 
-void solve() {
+using namespace std;
+using ll =long long;
+typedef pair<ll,ll> P;
+#define SORT(a) sort((a).begin(),(a).end())
+#define REV(a) reverse((a).begin(),(a).end())
+#define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
+#define rep(i, n)       For(i, 0, n)
+#define debug(x)  cerr << #x << " = " << (x) << endl;
+#define fore(i, a) for(auto &i: a)
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
+
+void coY() {cout <<"Yes"<<endl;}
+void coN(){cout <<"No"<<endl;}
+void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
+void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
+
+const int dy[] = {0,0,1,-1};
+const int dx[] = {1,-1,0,0};
+const ll mod = 1e9+7;
+const ll MOD = 998244353;
+const double PI=3.14159265358979323846;
+const int inf = 1001001001;
+const ll INF = 1'000'000'000'000'000'000;
+//Write From this Line
+int main()
+{
   int n;
   cin >> n;
-  vector<P> p(n);
-  rep(i,n) cin >> p[i].first >> p[i].second;
-  sort(p.begin(), p.end());
-  priority_queue<int, vector<int>, greater<int>> q;
-  int x = 1;
-  const int INF = 1001001001;
-  p.emplace_back(INF, INF);
-  for (auto [l, r) : p) {
-    while (x < l && q.size()) {
-      if (q.top() < x) {
-        cout << "No" << endl;
-        return;
-      }
-      q.pop();
-      ++x;
-    }
-    x = l;
-    q.push(r);
+  map<pair<string,string>,bool> mp;
+  bool flag = false;
+  rep(i,n){
+    string a, b;
+    cin >> a >> b;
+    if(mp[{a,b}]) flag = true;
+    mp[{a,b}]=true;
   }
-  cout << "Yes" << endl;
-}
-
-int main() {
-  int T;
-  cin >> T;
-  rep(ti,T) solve();
-  return 0;
+  if(flag) coY();
+  else coN();
 }

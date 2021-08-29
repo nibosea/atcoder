@@ -1,48 +1,39 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
+
 using namespace std;
+using ll =unsigned long long;
+typedef pair<ll,ll> P;
+#define SORT(a) sort((a).begin(),(a).end())
+#define REV(a) reverse((a).begin(),(a).end())
+#define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
+#define rep(i, n)       For(i, 0, n)
+#define debug(x)  cerr << #x << " = " << (x) << endl;
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
-const int MOD = 1000000007;
+void coY() {cout <<"Yes"<<endl;}
+void coN(){cout <<"No"<<endl;}
+void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
+void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
-// res[i][c] := i 文字目以降で最初に文字 c が登場する index (存在しないときは n)
-vector<vector<int> > calcNext(const string &S) {
-    int n = (int)S.size();
-    vector<vector<int> > res(n+1, vector<int>(26, n));
-    for (int i = n-1; i >= 0; --i) {
-        for (int j = 0; j < 26; ++j) res[i][j] = res[i+1][j];
-        res[i][S[i]-'a'] = i;
-    }
-    return res;
-}
-
-// mod 1000000007 の世界で a += b する関数
-void add(long long &a, long long b) {
-    a += b;
-    if (a >= MOD) a -= MOD;
-}
-
-int main() {
-    // 入力
-    string S; cin >> S;
-    int n = (int)S.size();
-
-    // 前処理配列
-    vector<vector<int> > next = calcNext(S);
-
-    // DP
-    vector<long long> dp(n+1, 0);
-    dp[0] = 1; // 初期化、空文字列 "" に対応
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < 26; ++j) {
-            if (next[i][j] >= n) continue; // 次の文字 j がもうない場合はスルー
-            add(dp[next[i][j] + 1], dp[i]);
+const int dy[] = {0,0,1,-1};
+const int dx[] = {1,-1,0,0};
+const ll mod = 1e9+7;
+const ll MOD = 998244353;
+const double PI=3.14159265358979323846;
+const int inf = 1001001001;
+const ll INF = 1'000'000'000'000'000'000;
+//Write From this Line
+int main()
+{
+    ll n, k;
+    cin >> n >> k;
+    while(k--){
+        if(n % 200 == 0) n /= 200;
+        else {
+            n *= 1000;
+            n += 200;
         }
     }
-
-    // 集計
-    long long res = 0;
-    for (int i = 0; i <= n; ++i) add(res, dp[i]);
-
-    cout << res << endl;
+    cout << n << endl;
 }

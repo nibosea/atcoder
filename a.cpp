@@ -23,29 +23,8 @@ const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
-//Write From this Line
+//Write From this Lin
 int main()
 {
-    string s;
-    cin >> s;
-    bool flag = true;
-    string x="";
-    string y="";
-    rep(i,s.size()){
-        if(flag){
-            if(s[i] == '.'){
-                flag = false;
-            } else {
-                x += s[i];
-            }
-        } else {
-             y += s[i];
-        }
-    }
-    int X = stoi(x);
-    int Y = stoi(y);
-    cout << x;
-    if(Y <= 2) cout << "-\n";
-    else if(Y <= 6) cout << "\n";
-    else if(Y <= 9) cout << "+\n";
+    
 }

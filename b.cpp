@@ -27,16 +27,4 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-  int n;
-  cin >> n;
-  map<pair<string,string>,bool> mp;
-  bool flag = false;
-  rep(i,n){
-    string a, b;
-    cin >> a >> b;
-    if(mp[{a,b}]) flag = true;
-    mp[{a,b}]=true;
-  }
-  if(flag) coY();
-  else coN();
 }

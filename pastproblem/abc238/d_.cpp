@@ -28,22 +28,22 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-    int n, k;
-    cin >> n >> k;
-    vector<int> p(n);
-    rep(i,n) cin >> p[i];
-    priority_queue<int,vector<int>, greater<int>> pq;
-    rep(i,k){
-        pq.push(p[i]);
-    }
-    cout << pq.top() << endl;
-    for(int i = k; i < n; i++){
-        if(pq.top() > p[i]){
-            cout << pq.top() << endl;
-        } else {
-            pq.pop();
-            pq.push(p[i]);
-            cout << pq.top() << endl;
+    int t; cin >> t;
+    while(t--){
+        ll a, s;
+        cin >> a >> s;
+        ll x, y;
+        x = a;
+        y = s-a;
+        ll and1 = x&y;
+        ll sum1 = x + y;
+        //debug(and1);
+        //debug(sum1);
+        if(y < 0){
+            coN();
+            continue;
         }
+        if((x & y) == a) coY();
+        else coN();
     }
 }

@@ -2041,3 +2041,34 @@ K以下の整数の中で,4か9を含んでしまう整数は何通りありま�
 [ワーシャルフロイド法,bitDP,巡回セールスマン]<br>
 
 Joisino's travelのように，next_permutationを用いていたら実行時間が間に合わないっすね．17の階乗は，10を8回以上かけているのでどう考えても間に合わないです．<br>
+
+## [2022年2月10日](https://iloveconviniboshi.hatenablog.com/entry/2022/02/10/190309)
+
+久しぶりに競プロ解いた問題の解説書いたわあ(解説…?）
+
+###  [ABC226 D - Teleportation](https://atcoder.jp/contests/abc226/tasks/abc226_d)
+
+[全探索、辞書型配列,比の約分]
+
+1. 各頂点から(自身以外の)各頂点へ、1つの魔法のみを使って移動する
+2. 1つの魔法であれば、何回使ってもいい
+3. 任意の頂点から、任意の頂点へ、上記のルールで移動するとき、魔法が最小で何種類あればいいかを求める問題
+
+
+
+### [ABC232 C - Graph Isomorphism](https://atcoder.jp/contests/abc232/tasks/abc232_c)
+
+[順列全探索,,nextpermutation,頭壊れる]  
+next permutationっぽいなコレ。こういう問題頭壊れるｯｽﾈ
+
+
+
+## [2022年2月11日](https://iloveconviniboshi.hatenablog.com/entry/2022/02/11/232939)
+
+###   [ABC225 C - Calendar Validator](https://atcoder.jp/contests/abc225/tasks/abc225_c)
+
+- [書けばわかる、サンプルがすべてじゃない、オーバーフローしない、灰diff]
+
+灰色diffだけど、そこそこ難しい。サンプルが通っても勝ちじゃない<br>
+
+書けばわかるんだけど、行列Aを書くと、こうなるよ

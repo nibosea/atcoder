@@ -30,5 +30,25 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+    int n; cin >> n;
+    vector<int> a(n), b(n);
+    map<int,bool> mp_a, mp_b;
+    rep(i,n){
+        cin >> a[i];
+        mp_a[a[i]]=true;
+    }
+    rep(i,n){
+        cin >> b[i];
+        mp_b[b[i]]=true;
+    }
+    int ans1 = 0;
+    int ans2 = 0;
+    rep(i,n){
+        if(a[i] == b[i]) ans1++;
+        else {
+            if(mp_b[a[i]]) ans2++;
+        }
+    }
+    cout << ans1 << endl;
+    cout << ans2 << endl;
 }

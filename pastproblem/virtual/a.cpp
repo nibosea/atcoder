@@ -10,7 +10,7 @@ typedef pair<int,int> P;
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
 #define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
-#define per(i, n)       Per(i,n,0)
+#define per(i, n)       Per(i,0,n)
 #define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
@@ -30,5 +30,7 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+    int n;
+    cin >> n;
+    cout << (n+99) / 100 << endl;
 }

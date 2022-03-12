@@ -30,5 +30,42 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+    int n; cin >> n;
+    vector<tuple<int,int,char>> t(n);
+    vector<P> p(n);
+    rep(i,n){
+        // (y,x);
+        cin >> p[i].second >> p[i].first;
+    }
+    string s;
+    cin >> s;
+    rep(i,n){
+        // (y,x)
+        t[i] = {p[i].first, p[i].second, s[i]};
+    }
+    SORT(t);
+    // y,x
+    bool diff = true;
+    int memo = p[0].first;
+    bool R = false;
+    rep(i,n){
+        int x,y;
+        char c;
+        tie(y,x,c) = t[i];
+        if(memo == y){
+            if(c == 'L'){
+                if(R){
+                    coY();
+                    return 0;
+                }
+            } else {
+                R = true;
+            }
+        } else {
+            R = false;
+            if(c == 'R') R = true;
+            memo = y;
+        }
+    }
+    coN();
 }

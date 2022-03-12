@@ -30,5 +30,34 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+    ll n, x;
+    cin >> n >> x;
+    string s;
+    cin >> s;
+    deque<char> deq;
+    rep(i,n){
+        if(s[i] == 'U'){
+            // 親
+            if(!deq.empty()){
+                deq.pop_back();
+            } else {
+                x /= 2;
+            }
+        } else if(s[i] == 'L'){
+            // 左 
+            deq.push_back('L');
+        } else if(s[i] == 'R'){
+        // ⇒
+            deq.push_back('R');
+        }
+    }
+    while(!deq.empty()){
+        x *= 2;
+        if(deq.front() == 'L'){
+        } else {
+            x++;
+        }
+        deq.pop_front();
+    }
+    cout << x << endl;
 }

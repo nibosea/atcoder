@@ -28,7 +28,43 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+map<ll, ll> memo;
+ll dfs(ll x){
+    if(memo[x]) return memo[x];
+    ll X = sqrt(x) / 1;
+    debug(X);
+    if(X == 1){
+        return memo[x] = 1;
+    }
+    // 1 ~ 4の数字まではいる
+    ll now = 1;
+    ll ret = 1;
+    ll ind = -1;
+    for(ll i = 2; i*i <= X; i++){
+        ind = i;
+        // now ~ i*i - 1までいける
+        ll cnt = (i*i - 1) - now + 1;
+        debug(cnt);
+        ret *= cnt * dfs(i);
+        now = i*i;
+    }
+    if(ind != -1){
+        ret *= dfs(ind);
+    }
+    return memo[x] = ret;
+}
+void solve(ll x){
+    cout << dfs(x) << endl;
+}
 int main()
 {
+    int t; cin >> t;
+    vector<ll> x(t);
+    rep(i,t) cin >> x[i];
 
+    solve(x[0]);
+    rep(i,t){
+        //solve(x[i]);
+        
+    }
 }

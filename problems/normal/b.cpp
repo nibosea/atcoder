@@ -2,7 +2,6 @@
 #include <atcoder/all>
 
 using namespace std;
-using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
@@ -10,7 +9,7 @@ typedef pair<int,int> P;
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
 #define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
-#define per(i, n)       Per(i,0,n)
+#define per(i, n)       Per(i,n,0)
 #define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
@@ -30,23 +29,5 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-    ll n, k, m; cin >> k >> n >> m;
-    vector<ll> a(k);
-    rep(i,k) cin >> a[i];
 
-    ll ok = 1e9; 
-    ll ng = -1;
-    while(ok - ng > 1){
-        ll mid = ok + ng; mid /= 2;
-        // i = 0 ~ k-1について、mid点未満が達成できるかどうか
-        ll amari = 0;
-        rep(i,k){
-            ll ten = m * a[i];
-            // mid点以下にすることが目標
-            ll diff = ten - mid; // 点から減らしてmidに近づけることを考える
-            if(mid < ten){
-                
-            }
-        }
-    }
 }

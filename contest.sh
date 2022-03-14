@@ -9,3 +9,5 @@ do
 	touch problems/$1/$i
 	cp main.cpp problems/$1/$i
 done
+cd problems/$1
+chmod +x go.sh

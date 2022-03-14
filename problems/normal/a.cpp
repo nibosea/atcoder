@@ -1,30 +1,33 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
-// 計算時間を考慮し，答えが1~10の8乗の範囲にあるとする
-const int MAX_N = 1e8;
+using ll = long long;
+typedef pair<int,int> P;
+#define SORT(a) sort((a).begin(),(a).end())
+#define REV(a) reverse((a).begin(),(a).end())
+#define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
+#define rep(i, n)       For(i, 0, n)
+#define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
+#define per(i, n)       Per(i,n,0)
+#define debug(x)  cerr << #x << " = " << (x) << endl;
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
+
+void coY() {cout <<"Yes"<<endl;}
+void coN(){cout <<"No"<<endl;}
+void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
+void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
+
+const int dy[] = {0,0,1,-1};
+const int dx[] = {1,-1,0,0};
+const ll mod = 1e9+7;
+const ll MOD = 998244353;
+const double PI=3.14159265358979323846;
+const int inf = 1001001001;
+const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-    int n; cin >> n;
-    // エラトステネスの篩
-    vector<bool> is_prime(MAX_N,true);
-    for(int i = 0; i <= 1; i++){
-        is_prime[i] = false;
-    }
-    int cnt = 0;
-    for(int i = 2; i < MAX_N; i++){
-        if(is_prime[i]){
-            cnt++;
-            if(cnt == n){
-                // n番目の素数が見つかったので出力する
-                cout << i << endl;
-                return 0;
-            }
-            for(int j = i; j < MAX_N; j += i){
-                is_prime[j] = false;
-            }
-        }
-    }
-    // n番目の素数がMAX_Nまでに無ければ何も出力されずにプログラムは終了する
+
 }

@@ -1,4 +1,5 @@
 #!/bin/bash
+#source contest.sh abcXXXのほうがいいよ
 ARRAY=(a.cpp b.cpp c.cpp d.cpp e.cpp f.cpp g.cpp h.cpp)
 
 mkdir problems/$1

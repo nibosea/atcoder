@@ -16,9 +16,6 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
-void coT() {cout <<"Takahashi"<<endl;}
-void coA(){cout <<"Aoki"<<endl;}
-
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 

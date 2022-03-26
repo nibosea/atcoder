@@ -14,11 +14,8 @@ typedef pair<int,int> P;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
-void coY() {cout <<"Yes"<<endl;}
-void coN(){cout <<"No"<<endl;}
-void coT() {cout <<"Takahashi"<<endl;}
-void coA(){cout <<"Aoki"<<endl;}
-
+void coY() {cout <<"Takahashi"<<endl;}
+void coN(){cout <<"Aoki"<<endl;}
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
@@ -32,5 +29,22 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	int a, b, c,d;
+	cin >> a>> b>> c>>d;
+	if(a==c&&b==d){
+		coY();
+		return 0;
+	}
+	if(a<c){
+		coY();
+	} else if(c<a){
+		coN();
+	} else {
+		// a = c;
+		if(b<d){
+			coY();
+		} else if(b>d){
+			coN();
+		} else coY();
+	}
 }

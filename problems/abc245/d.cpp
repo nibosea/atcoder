@@ -16,9 +16,6 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
-void coT() {cout <<"Takahashi"<<endl;}
-void coA(){cout <<"Aoki"<<endl;}
-
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
@@ -32,5 +29,40 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	int n, m;
+	cin >> n >> m;
+	vector<int> a(n+1);
+	rep(i,n+1) cin >> a[i];
+	vector<int> c(n+m+1);
+	rep(i,n+m+1) cin >> c[i];
+	vector<int> b(m+1);
+	rep(i,m+1){
+		// b[i]を求める
+		ll now = 0;
+		rep(j,n+1){
+			// a側の次数がj
+			if(j>i)break;
+			// 超えていないとき、対応する ｂの次数は i - j
+			int indb = i - j;
+			debug(i);
+			if(indb == i){
+				// まだ決まっていないので全探索する
+				rep(bb,101){
+					ll sum = now;
+					sum += a[j] * bb;
+					if(sum == c[i]){
+						b[i] = bb;
+						break;
+					}
+				}
+			} else {
+				now += a[j] * b[indb];
+				continue;
+			}
+		}
+	}
+	rep(i,m+1){
+		cout << b[i] << " ";
+	}
+	cout << endl;
 }

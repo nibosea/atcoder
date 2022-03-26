@@ -16,9 +16,6 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
-void coT() {cout <<"Takahashi"<<endl;}
-void coA(){cout <<"Aoki"<<endl;}
-
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
@@ -32,5 +29,10 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	int n , m; cin >> n >> m;
+	vector<int> a(n), b(n), c(m), d(m);
+	rep(i,n) cin >> a[i];
+	rep(i,n) cin >> b[i];
+	rep(i,m) cin >> c[i];
+	rep(i,m) cin >> d[i];
 }

@@ -29,5 +29,15 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	int m, n; cin >> m >> n;
+	int ans = 0;
+	rep(i,m){
+		int now = 0;
+		rep(j,n){
+			int x;cin >> x;
+			now += x;
+		}
+		chmax(ans,now);
+	}
+	cout << ans << endl;
 }

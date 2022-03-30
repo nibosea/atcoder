@@ -30,25 +30,53 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	int tc; 
-	cin >> tc;
-	while(tc--){
-		int n; string s;
-		cin >> n >> s;
-		ll cres = 0;
-		string target = s;
-		int p = 0, q=n-1;
-		while(p<q){
-			target[q]=target[p];
-			p++; q--;
-		}
-		int last = (n-1)/2;
-		rep(i,last+1){
-			cres*=26;cres%=MOD;
-			cres+=(s[i]-'A'); cres%=MOD;
-		}
-		cres++;cres%=MOD;
-		if(s<target) {cres+=(MOD-1);cres%=MOD;}
-		cout << cres << endl;
+	ll n, k;
+	cin >> n>> k;
+	vector<ll> a(n);
+	rep(i,n) cin >> a[i];
+
+	// 0 -> x -> ... -> x -> ... -> x -> 最後
+	// xまでが何回か。x -> xを何回繰り返せるか。最後 xから何回操作を行うか
+	ll x = 0;
+	ll ans = 0;
+	map<ll,ll> mp;
+	ll cnt = 1;
+	while(mp[x] == 0){
+		k--;
+		mp[x] = cnt++;
+		ll ame = a[x];
+		ans += ame;
+		x = ans % n;
+		if(k==0) break;
 	}
+	debug(ans);
+	if(k == 0){ cout << ans << endl; return 0;}
+	ll period = cnt - mp[x];
+	debug(period);
+	// 周期が何回入るか
+	ll times = k / period;
+	k %= period;
+	ll period_num = 0; //x -> xの直前まででいくつ飴が取れるか
+	ll y = x;
+	while(true){
+		ll ame = a[y];
+		period_num += ame;
+		y += ame;
+		y %= n;
+		if(y == x) {
+			break;
+		}
+	}
+	debug(period_num);
+	ans += times * period_num;
+	debug(k);
+	// 残りはxを追加するところから。
+	debug(ans);
+	rep(i,k){
+		ll ame = a[x];
+		debug(ame);
+		ans += ame;
+		x += ame; x %= n;
+	}
+	cout << ans << endl;
 }

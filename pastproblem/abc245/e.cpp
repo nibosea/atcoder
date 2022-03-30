@@ -30,9 +30,45 @@ const ll INF = 1'000'000'000'000'000'000;
 int main()
 {
 	int n , m; cin >> n >> m;
-	vector<int> a(n), b(n), c(m), d(m);
-	rep(i,n) cin >> a[i];
-	rep(i,n) cin >> b[i];
-	rep(i,m) cin >> c[i];
-	rep(i,m) cin >> d[i];
+	vector<P> cho(n);
+	vector<P> hako(m);
+	rep(i,n) cin >> cho[i].first;
+	rep(i,n) cin >> cho[i].second;
+	rep(i,m) cin >> hako[i].first;
+	rep(i,m) cin >> hako[i].second;
+	
+	SORT(cho);
+	REV(cho);
+	SORT(hako);
+	REV(hako);
+
+	multiset<int> hakos;
+	int hako_i = 0;
+	rep(i,n){
+		// i個目のチョコを考える
+		int cho_x, cho_y;
+		tie(cho_x, cho_y) = cho[i];
+		// cho_x以上である箱のy座標をsetに追加する
+		for(int j = hako_i; j < m; j++){
+			int hako_x, hako_y;
+			tie(hako_x, hako_y) = hako[j];
+			if(hako_x >= cho_x){
+				hakos.insert(hako_y);
+				hako_i = j+1;
+			} else {
+				// その箱は使えない
+				break;
+			}
+		}
+		// hakosに入っているものは、すべてXは条件を満たしている
+		// cho_y以上となる要素が見つかるかどうかを判定する
+		auto it = hakos.lower_bound(cho_y);
+		if(it == hakos.end()){
+			coN();
+			return 0;
+		}
+		hakos.erase(it);
+	}
+	coY();
+
 }

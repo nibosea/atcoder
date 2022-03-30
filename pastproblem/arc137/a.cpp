@@ -27,49 +27,21 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-vector<bool> glok(200050);
-vector<int> to[200050];
-
-bool seen[200050];
-bool dfs(int v){
-	if(glok[v]){
-		return true;
-	}
-	if(seen[v]){
-		// また来た！ってときは、return 
-		glok[v] = true;
-		return true;
-	}
-	seen[v] = true;
-	for (auto nv: to[v]){
-		if(dfs(nv)) {
-			glok[v] = true;
-			return true;
-		}
-	}
-	seen[v] = false;
-	return false;
-}
 int main()
 {
-	int n, m; cin >> n >> m;
-	rep(i,m) {
-		int x, y;
-		cin >> x>> y;
-		x--;y--;
-		to[x].push_back(y);
+	ll L, R;
+	cin >> L>> R;
+	ll ans = R-L;
+	bool cont = true;
+	while(cont){
+		for(ll l = L; l + ans <= R; l++){
+			if(__gcd(l,l+ans) == 1){
+				cout << ans << endl;
+				cont = false;
+				break;
+			}
+		}
+		ans--;
 	}
-	
-	vector<bool> ans(n,false);
-	rep(i,n){
-		if(ans[i]) continue;
-		if(glok[i]) ans[i] = true;
-		// dfsでやったほうがいい
-		dfs(i);
-	}
-	int ans2 = 0;
-	rep(i,n){
-		ans2 += ans[i];
-	}
-	cout << ans2 << endl;
 }
+

@@ -27,19 +27,42 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+vector<bool> glok(200050);
+vector<int> to[200050];
+vector<int> from[200050];
+
+bool seen[200050];
 int main()
 {
-	ll L, R;
-	cin >> L>> R;
-	ll ans = R-L;
-	while(true){
-		for(ll l = L; l + ans <= R; l++){
-			if(__gcd(l,l+ans) == 1){
-				cout << ans << endl;
-				return 0;
+	int n, m; cin >> n >> m;
+	map<int,int> mp;
+	vector<int> sz(n,0);
+	rep(i,m) {
+		int x, y;
+		cin >> x>> y;
+		x--;y--;
+		to[y].push_back(x);
+		sz[x]++;
+	}
+
+	queue<int> que;
+	rep(v,n){
+		if(sz[v] == 0){
+			que.push(v);
+		}
+	}
+
+	int ans = n;
+	while(!que.empty()){
+		int v = que.front();
+		que.pop();
+		ans--;
+		for(auto nv:to[v]){
+			sz[nv]--;
+			if(sz[nv]==0){
+				que.push(nv);
 			}
 		}
-		ans--;
 	}
+	cout << ans << endl;
 }
-

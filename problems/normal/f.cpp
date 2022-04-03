@@ -58,23 +58,34 @@ class BIT{
     // show the value
     void debug(){print(data);}
 };
+int dp[3005][3005];
 int main()
 {
-	int n; cin >> n;
-	vector<ll> a(n);
-	vector<ll> b(n);
-	rep(i,n) cin >> a[i];
-	vector<P> ap;
-	rep(i,n){
-		ap.push_back(make_pair(a[i],i));
+	string s, t;
+	cin >> s>> t;
+	rep(i,s.size()){
+		rep(j,t.size()){
+			chmax(dp[i+1][j+1], max(dp[i][j+1], dp[i+1][j]));
+			if(s[i] == t[j]){
+				chmax(dp[i+1][j+1], dp[i][j]+1);
+			}
+		}
 	}
-	SORT(ap);
-	rep(i,n) b[ap[i].second] = i;
-	BIT<ll> c(n);
-	ll ans = 0;
-	rep(i,n){
-		ans += i - c.sum0(b[i]);
-		c.add0(b[i],1);
+	int ans = dp[s.size()][t.size()];
+	int H = s.size();
+	int W = t.size();
+	string str = "";
+	while(ans){
+		if(H && dp[H-1][W] == ans) H--;
+		else if(W && dp[H][W-1] == ans) W--;
+		else {
+			if(H) str.push_back(s[H-1]);
+			else str.push_back(t[W-1]);
+			H--;
+			W--;
+			ans--;
+		}
 	}
-	cout << ans << endl;
+	REV(str);
+	cout << str << endl;
 }

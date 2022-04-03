@@ -29,43 +29,58 @@ const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 
 //Write From this Line
-using Edge = pair<int, pair<int, int>>;
+vector<int> to[405];
 // 迂回路判定；；
 int main()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<Edge> edges(m);
-
-    vector<vector<ll>> d(n,vector<ll> (n,INF));
-	vector<vector<ll>> dp(n,vector<ll> (n,INF));
-    rep(i,n){
-        d[i][i] = 0;
-    }
-    rep(i,m){
-        ll a, b, c;   cin >> a >> b>> c;
-        --a, --b;
-        edges[i] = Edge(c, make_pair(a,b));
-		chmin(d[a][b],c);
-    }
-    SORT(edges);
-    rep(k,n){
-        rep(i,n){
-            rep(j,n){
-				chmin(dp[i][j], d[i][k]+d[k][j]);
-            }
-        }
-    }
-    ll ans = 0;
-    map<int, bool> use;
-    rep(i,m){
-        ll w = edges[i].first;
-        ll u = edges[i].second.first;
-        ll v = edges[i].second.second;
-		if(d[u][v] <= dp[u][v])ans++;
-		//if(d[u][v] < w) ans++;
-
-    }
-    // ここから，全点間の距離を求める
-    cout << ans << endl;
+	int n, m;
+	cin >> n>> m;
+	vector g(n,vector<int>(n,-1));
+	vector<P> edge(m);
+	rep(i,m){
+		int a, b;
+		cin >> a>> b;
+		--a, --b;
+		g[a][b] = i;
+		edge[i] = P(a,b);
+	}
+	vector<int> dis(n,-1); dis[0] = 0;
+	vector<P> memo(n);
+	queue<int> que; que.push(0);
+	vector<bool> use(m,false);
+	while(!que.empty()){
+		int i = que.front(); que.pop();
+		rep(j,n) if(dis[j] == -1 && g[i][j] != -1){
+			dis[j] = dis[i] + 1;
+			memo[j] = P(i,g[i][j]); //iから辺g[i][j]を使ってjに行ける
+			use[g[i][j]] = true;
+			que.push(j);
+		}
+	}
+	if(dis[n-1] == -1){
+		rep(i,m) cout<<-1 <<endl;
+		return 0;
+	}
+	rep(i,m){
+		if(!use[i]){
+			//puts("not use");
+			cout << dis[n-1] << endl;
+		}
+		else {
+			//　辺iを使わないようにしてdfs
+			vector<int> now_dis(n,-1); now_dis[0] = 0;
+			queue<int> q; q.push(0);
+			vector<bool> seen(n,false);
+			while(!q.empty()){
+				int j = q.front();q.pop();
+				rep(k,n){
+					if(now_dis[k] == -1 && g[j][k] != -1 && g[j][k] != i){
+						now_dis[k] = now_dis[j] + 1;
+						q.push(k);
+					}
+				}
+			}
+			cout << now_dis[n-1] << endl;
+		}
+	}
 }

@@ -10,12 +10,14 @@ typedef pair<int,int> P;
 #define rep(i, n)       For(i, 0, n)
 #define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
 #define per(i, n)       Per(i,n,0)
-#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
+void coT() {cout <<"Takahashi"<<endl;}
+void coA(){cout <<"Aoki"<<endl;}
+
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
@@ -27,33 +29,40 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-ll dp[105][100100];
 int main()
 {
-	int N, W;
-	cin >> N>> W;
-	vector<int> w(N), v(N);
-	rep(i,N) cin >> w[i] >> v[i];
-	// dp[i][j]:= 品物をi個まで選んだとき、価値がj以上となる。おもさの最小
-	rep(i,103){
-		rep(j,100010){
-			dp[i][j] = INF;
+	int n, k , x;
+	cin >> n>> k >> x;
+	vector<int> a(n);
+	rep(i,n) cin >> a[i];
+	// k枚のクーポンがある。
+	SORT(a);
+	REV(a);
+	rep(i,n){
+		// a[i] >= xなら使う
+		if(a[i] >= x){
+			ll use = 0;
+			use = a[i]/ x;
+			if(k==0) break;
+			if(use > k){
+				use = k;
+			}
+			a[i] -= use*x;
+			k -= use;
+		} else {
+			break;
 		}
 	}
-	dp[0][0] = 0;
-	rep(i,N){
-		ll wei = w[i];
-		ll kati = v[i];
-		rep(j,100010) dp[i+1][j] = dp[i][j];
-		rep(j,100010){
-			if(dp[i][j] == INF) continue;
-			ll n_kati = j + kati;
-			chmin(dp[i+1][n_kati], dp[i][j] + wei);
-		}
-	}
+	// この処理をした後なら、大きい順に１枚使うかどうかだけでok
+	SORT(a);
+	REV(a);
 	ll ans = 0;
-	rep(j,100010){
-		if(dp[N][j] <= W) chmax(ans,(ll)j);
+	rep(i,n){
+		if(k){
+			a[i] = 0;
+			k--;
+		}
+		ans += a[i];
 	}
 	cout << ans << endl;
 }

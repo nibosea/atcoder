@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 
 using namespace std;
 using ll = long long;
@@ -29,15 +28,37 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	int m, n; cin >> m >> n;
-	int ans = 0;
-	rep(i,m){
-		int now = 0;
-		rep(j,n){
-			int x;cin >> x;
-			now += x;
+	int t;
+	cin >> t;
+	rep(i,t){
+		int r, c;
+		cin >> r>> c;
+		cout << "Case #";
+		cout << i+1; 
+		cout <<":";
+		cout << endl;
+		cout << "..";
+		cout << "+";
+		rep(j,c-1){
+			cout << "-+";
 		}
-		chmax(ans,now);
+		cout << endl;
+		//２行目
+		cout << "..";
+		cout << "|";
+		rep(j,c-1){
+			cout << ".|";
+		}
+		cout << endl;
+		// 3行目以降
+		string pm = "+";
+		rep(j,c) pm += "-+";
+		string dot = "|";
+		rep(j,c) dot += ".|";
+		cout << pm << endl;
+		rep(j,r-1){
+			cout << dot << endl;
+			cout << pm << endl;
+		}
 	}
-	cout << ans << endl;
 }

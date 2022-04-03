@@ -16,6 +16,9 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
+void coT() {cout <<"Takahashi"<<endl;}
+void coA(){cout <<"Aoki"<<endl;}
+
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
@@ -26,34 +29,30 @@ const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
+ll f(ll a, ll b){
+	ll x1 = a*a*a;
+	ll x2 = a*a*b;
+	ll x3 = a*b*b;
+	ll x4 = b*b*b;
+	return (x1+x2+x3+x4);
+}
 //Write From this Line
-ll dp[105][100100];
 int main()
 {
-	int N, W;
-	cin >> N>> W;
-	vector<int> w(N), v(N);
-	rep(i,N) cin >> w[i] >> v[i];
-	// dp[i][j]:= 品物をi個まで選んだとき、価値がj以上となる。おもさの最小
-	rep(i,103){
-		rep(j,100010){
-			dp[i][j] = INF;
+	ll n; 
+	cin >> n; 
+	ll ans = INF;
+	for(ll a = 0; (a*a*a) <= n; a++){
+		ll now = 0;
+		ll ok = 1e6, ng = -1;
+		while(ok-ng>1){
+			ll mid = (ok+ng) / 2;
+			ll now = f(a,mid);
+			//debug(now);
+			if(now >= n) ok = mid;
+			else ng = mid;
 		}
-	}
-	dp[0][0] = 0;
-	rep(i,N){
-		ll wei = w[i];
-		ll kati = v[i];
-		rep(j,100010) dp[i+1][j] = dp[i][j];
-		rep(j,100010){
-			if(dp[i][j] == INF) continue;
-			ll n_kati = j + kati;
-			chmin(dp[i+1][n_kati], dp[i][j] + wei);
-		}
-	}
-	ll ans = 0;
-	rep(j,100010){
-		if(dp[N][j] <= W) chmax(ans,(ll)j);
+		chmin(ans,f(a,ok));
 	}
 	cout << ans << endl;
 }

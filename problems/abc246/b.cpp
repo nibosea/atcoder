@@ -16,6 +16,9 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
+void coT() {cout <<"Takahashi"<<endl;}
+void coA(){cout <<"Aoki"<<endl;}
+
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
@@ -27,33 +30,20 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-ll dp[105][100100];
 int main()
 {
-	int N, W;
-	cin >> N>> W;
-	vector<int> w(N), v(N);
-	rep(i,N) cin >> w[i] >> v[i];
-	// dp[i][j]:= 品物をi個まで選んだとき、価値がj以上となる。おもさの最小
-	rep(i,103){
-		rep(j,100010){
-			dp[i][j] = INF;
-		}
-	}
-	dp[0][0] = 0;
-	rep(i,N){
-		ll wei = w[i];
-		ll kati = v[i];
-		rep(j,100010) dp[i+1][j] = dp[i][j];
-		rep(j,100010){
-			if(dp[i][j] == INF) continue;
-			ll n_kati = j + kati;
-			chmin(dp[i+1][n_kati], dp[i][j] + wei);
-		}
-	}
-	ll ans = 0;
-	rep(j,100010){
-		if(dp[N][j] <= W) chmax(ans,(ll)j);
-	}
-	cout << ans << endl;
+	double a, b;
+	cin >> a>> b;
+	double d = (b/a);
+	double ng = 0;
+	double ok = inf;
+	double y = (b*b)/(a*a+b*b);
+	y = sqrt(y);
+	double x = 1-(y*y);
+	x = sqrt(x);
+	cout << setprecision(15);
+	cout << x << " " << y << endl;
+	//  okは距離が１以上
+	//while(ok-ng
+
 }

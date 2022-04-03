@@ -35,106 +35,20 @@ bool inField(int x, int y, int n){
 }
 int main()
 {
-    int n; cin >> n;
-    vector<string> s(n);
-    rep(i,n) cin >> s[i];
-    rep(i,n){
-        rep(j,n){
-            // s[i][j]から横に6個を見る
-            int cnt = 0;
-            int ok = 2;
-            rep(k,6){
-                if(!inField(i,j+k,n)) continue;
-                if(s[i][j+k] == '#') cnt++;
-                else {
-                    if(ok>0){
-                        cnt++;
-                        ok--;
-                    } else {
-                        // okがないなら無理
-                        break;
-                    }
-                }
-            }
-            if(cnt == 6){
-                coY();
-                return 0;
-            }
-        }
-    }
-    rep(i,n){
-        rep(j,n){
-            // s[i][j]からtateに6個を見る
-            int cnt = 0;
-            int ok = 2;
-            if(i+5>=n) continue;
-            rep(k,6){
-                if(!inField(i+k,j,n)) continue;
-                if(s[i+k][j] == '#') cnt++;
-                else {
-                    if(ok>0){
-                        cnt++;
-                        ok--;
-                    } else {
-                        // okがないなら無理
-                        break;
-                    }
-                }
-            }
-            if(cnt == 6){
-                coY();
-                return 0;
-            }
-        }
-    }
-    // 斜めの判定をどうするか
-    rep(i,n){
-        rep(j,n){
-            // s[i][j]から右下に6つのマスを見る
-            int cnt = 0;
-            int ok = 2;
-            rep(k,6){
-                if(!inField(i+k,j+k,n)) continue;
-                if(s[i+k][j+k] == '#') cnt++;
-                else {
-                    if(ok>0){
-                        cnt++;
-                        ok--;
-                    } else {
-                        // okがないなら無理
-                        break;
-                    }
-                }
-            }
-            if(cnt == 6){
-                coY();
-                return 0;
-            }
-        }
-    }
-    rep(i,n){
-        rep(j,n){
-            // s[i][j]から左下に6つのマスを見る
-            int cnt = 0;
-            int ok = 2;
-            rep(k,6){
-                if(!inField(i+k,j-k,n)) continue;
-                if(s[i+k][j-k] == '#') cnt++;
-                else {
-                    if(ok>0){
-                        cnt++;
-                        ok--;
-                    } else {
-                        // okがないなら無理
-                        break;
-                    }
-                }
-            }
-            if(cnt == 6){
-                coY();
-                return 0;
-            }
-        }
-    }
-    coN();
+	int n;
+	cin >> n;
+	vector<int> a(n);
+	rep(i,n) cin >> a[i];
+	rep(i,n) a[i] %= 200;
+	map<int, int> mp;
+	rep(i,n){
+		mp[a[i]]++;
+	}
+	ll ans = 0;
+	for(auto x: mp){
+		ll kazu =x.second;
+		if(kazu==1) continue;
+		ans += (kazu*(kazu-1))/2;
+	}
+	cout << ans << endl;
 }

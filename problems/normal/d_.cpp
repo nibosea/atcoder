@@ -7,7 +7,36 @@
 #include <numeric>
 #include <algorithm>
 #include <cmath>
+#include <map>
 using namespace std;
+
+using ll = long long;
+typedef pair<int,int> P;
+#define SORT(a) sort((a).begin(),(a).end())
+#define REV(a) reverse((a).begin(),(a).end())
+#define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
+#define rep(i, n)       For(i, 0, n)
+#define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
+#define per(i, n)       Per(i,n,0)
+#define debug(x)  cerr << #x << " = " << (x) << endl;
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
+
+void coY() {cout <<"Yes"<<endl;}
+void coN(){cout <<"No"<<endl;}
+void coT() {cout <<"Takahashi"<<endl;}
+void coA(){cout <<"Aoki"<<endl;}
+
+void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
+void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
+
+const int dy[] = {0,0,1,-1};
+const int dx[] = {1,-1,0,0};
+const ll mod = 1e9+7;
+const ll MOD = 998244353;
+const double PI=3.14159265358979323846;
+const int inf = 1001001001;
+const ll INF = 1'000'000'000'000'000'000;
 
 struct Mo {
     vector<int> left, right, index; // the interval's left, right, index
@@ -60,36 +89,42 @@ struct Mo {
 };
 
 int N, Q;
-int A[300001];
-int res[200001];
-int cnt[1000001];
-int num_kind = 0;
+int A[500001];
+int res[500001];
+int cnt[500001];
+int num = 0;
 
 void Mo::insert(int id) {
-    int val = A[id];
-    if (cnt[val] == 0) ++num_kind;
-    ++cnt[val];
+	int color = A[id];	
+	int k = cnt[color];
+	// color の　個数　k
+	if(k == 0) num++;
+	cnt[color]++;
 }
 
 void Mo::erase(int id) {
-    int val = A[id];
-    --cnt[val];
-    if (cnt[val] == 0) --num_kind;
+	int color = A[id];	
+	int k = cnt[color];
+	if(k == 1) num--;
+	cnt[color]--;
 }
 
 int main() {
-    scanf("%d", &N);
-    for(int i = 0; i < N; i++) scanf("%d", &A[i]);
-    scanf("%d", &Q);
-    Mo mo(N);
-    for(int i = 0; i < Q; i++) {
-        int l, r; scanf("%d %d", &l, &r);
-        mo.push(--l, r);
-    }
-    mo.build();
-    for (int i = 0; i < Q; i++){
-        int idx = mo.next();
-        res[idx] = num_kind;
-    }
-    for(int i = 0; i < Q; i++) printf("%d\n", res[i]);
+	scanf("%d", &N);
+	scanf("%d", &Q);
+	rep(i,N){
+		scanf("%dd", &A[i]);
+	}
+	Mo mo(N);
+	rep(i,Q) {
+		int l,r ;
+		scanf("%d %d", &l, &r);
+		mo.push(--l,r);
+	}
+	mo.build();
+	rep(i,Q){
+		int idx = mo.next();
+		res[idx] = num;
+	}
+	rep(i,Q) printf("%d\n", res[i]);
 }

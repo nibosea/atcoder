@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
 using ll = long long;
@@ -15,6 +16,9 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 void coY() {cout <<"Yes"<<endl;}
 void coN(){cout <<"No"<<endl;}
+void coT() {cout <<"Takahashi"<<endl;}
+void coA(){cout <<"Aoki"<<endl;}
+
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
@@ -28,37 +32,5 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	int t;
-	cin >> t;
-	rep(i,t){
-		int r, c;
-		cin >> r>> c;
-		cout << "Case #";
-		cout << i+1; 
-		cout <<":";
-		cout << endl;
-		cout << "..";
-		cout << "+";
-		rep(j,c-1){
-			cout << "-+";
-		}
-		cout << endl;
-		//２行目
-		cout << "..";
-		cout << "|";
-		rep(j,c-1){
-			cout << ".|";
-		}
-		cout << endl;
-		// 3行目以降
-		string pm = "+";
-		rep(j,c) pm += "-+";
-		string dot = "|";
-		rep(j,c) dot += ".|";
-		cout << pm << endl;
-		rep(j,r-1){
-			cout << dot << endl;
-			cout << pm << endl;
-		}
-	}
+
 }

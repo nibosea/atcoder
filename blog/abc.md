@@ -2095,3 +2095,14 @@ next permutationっぽいなコレ。こういう問題頭壊れるｯｽﾈ
 厄介な問題デス…<br>
 
 'a'と'b'のみの長さLの文字列と、'b'と'c'飲みの長さLの文字列の個数は一緒です。それぞれは干渉しません。
+
+
+## [2020-04-04](https://iloveconviniboshi.hatenablog.com/entry/2022/04/04/193621)
+ 
+### [ABC174 F- Range Set Query](https://atcoder.jp/contests/abc174/tasks/abc174_f)
+
+[Mo's Algorithm, 区間クエリ,区間の種類]
+
+Moの中身は分からないけど、とりあえずこれ参照しよう！
+[こーど](https://atcoder.jp/contests/abc174/submissions/30719970)
+注意点として、C++を使っていたら cin や cout endlをしちゃうとTLEになります（うげ〜）

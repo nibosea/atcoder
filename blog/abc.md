@@ -2072,3 +2072,26 @@ next permutationっぽいなコレ。こういう問題頭壊れるｯｽﾈ
 灰色diffだけど、そこそこ難しい。サンプルが通っても勝ちじゃない<br>
 
 書けばわかるんだけど、行列Aを書くと、こうなるよ
+
+[2020-03-28](https://iloveconviniboshi.hatenablog.com/archive/2020/03/28)
+
+[2022-04-03](https://iloveconviniboshi.hatenablog.com/archive/2022/04/03)
+
+## [4月3日](https://iloveconviniboshi.hatenablog.com/entry/2022/04/03/195520)
+
+[ABC246-E Bishop 2](https://atcoder.jp/contests/abc246/tasks/abc246_e)
+
+[01-BFS, 普通のBFSじゃTLE,斜め移動]
+
+- [ユーザ解説](https://atcoder.jp/contests/abc246/editorial/3728) by [**sounansya**](https://atcoder.jp/users/sounansya)が優秀すぎるデス…（CV.チノちゃん)
+
+自分はこのTLEが出るところまでできましたが、TLEを取ることができなかった…力不足デス…（CV.チノちゃん)
+普通の幅優先探索しようとすると、queueに入れて…って感じでまわしますよね。でもそれだとTLE…どうしてTLEになってしまうかは分かりません(ｴｰｯ！！(cv.はちわれ))
+
+### [ABC246-F typewriter](https://atcoder.jp/contests/abc246/tasks/abc246_f)
+
+[動的計画法、桁DP的な？文字列数え上げ、ncm,]
+
+厄介な問題デス…<br>
+
+'a'と'b'のみの長さLの文字列と、'b'と'c'飲みの長さLの文字列の個数は一緒です。それぞれは干渉しません。

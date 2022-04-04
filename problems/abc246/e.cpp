@@ -43,10 +43,6 @@ int main()
 	ll gx, gy;
 	cin >> gx>> gy;
 	sx--; sy--; gx--;gy--;
-	ll s1 = sx-sy;
-	ll s2 = sx+sy;
-	ll g1 = gx-gy;
-	ll g2 = gx+gy;
 	vector<string> field(n);
 	rep(i,n) cin >> field[i];
 	if( (sx+sy)%2 != (gx+gy)%2){
@@ -54,13 +50,14 @@ int main()
 		return 0;
 	}
 	vector dp(n,vector<ll> (n,inf));
-	vector usin(n,vector<int> (n,-1));
+	map<P,bool> usin;
 	dp[sx][sy] = 0;
-	usin[sx][sy] = true;
+	usin[P(sx,sy)] = true;
 	queue<P> q;
 	q.push(P(sx,sy));
 	while(!q.empty()){
 		auto [x,y] = q.front();
+		usin[P(x,y)] = true;
 		ll cost = dp[x][y] + 1;
 		q.pop();
 		rep(i,4){
@@ -71,12 +68,21 @@ int main()
 				ny +=dy[i];
 				if(!inField(nx,ny,n,n)) break;
 				if(field[nx][ny] == '#') break;
-				if(dp[nx][ny] != inf) continue;
+				if(usin[P(nx,ny)]) break;
 				if(chmin(dp[nx][ny],cost)){
 					q.push(P(nx,ny));
-				}
+					if(nx == gx && ny == gy){
+						cout << cost << endl;
+						return 0;
+					}
+				} 	
+				if(dp[nx][ny] <= dp[x][y]) break;
 			}
 		}
+	}
+	if(dp[gx][gy] == inf){
+		cout << -1 << endl;
+		return 0;
 	}
 	cout << dp[gx][gy] << endl;
 }

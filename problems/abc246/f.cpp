@@ -1,3 +1,5 @@
+//https://algo-logic.info/combination/
+//https://algo-logic.info/calc-pow/
 #include <bits/stdc++.h>
 #include <atcoder/all>
 
@@ -30,37 +32,49 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-vector<long long> fact_inv, inv, Com;
-/*  init_nCk :二項係数のための前処理
-    計算量:O(n)
-*/
-void init_nCk(int n, int SIZE) {
-    fact_inv.resize(SIZE + 5);
-    inv.resize(SIZE + 5);
-    fact_inv[0] = fact_inv[1] = 1;
+
+const int COMSIZE = 30;
+const int COMMOD = MOD;
+
+long long fac[COMSIZE], finv[COMSIZE], inv[COMSIZE];
+
+// テーブルを作る前処理
+void COMinit() {
+    fac[0] = fac[1] = 1;
+    finv[0] = finv[1] = 1;
     inv[1] = 1;
-    for (int i = 2; i < SIZE + 5; i++) {
-        inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;
-        fact_inv[i] = fact_inv[i - 1] * inv[i] % MOD;
-    }
-    Com.resize(SIZE + 5);
-    Com[0] = 1;
-    for (int i = 1; i < SIZE + 5; i++) {
-        Com[i] = Com[i - 1] * ((n - i + 1) * inv[i] % MOD) % MOD;
+    for (int i = 2; i < COMSIZE; i++){
+        fac[i] = fac[i - 1] * i % COMMOD;
+        inv[i] = COMMOD - inv[COMMOD%i] * (COMMOD / i) % COMMOD;
+        finv[i] = finv[i - 1] * inv[i] % COMMOD;
     }
 }
-/*  nCk :MODでの二項係数を求める(前処理 int_nCk が必要)
-    計算量:O(1)
-*/
-long long nCk(int k) {
-    return Com[k];
+
+// 二項係数計算
+long long COM(int n, int k){
+    if (n < k) return 0;
+    if (n < 0 || k < 0) return 0;
+    return fac[n] * (finv[k] * finv[n - k] % COMMOD) % COMMOD;
+}
+ll dp[30];
+long long modpow(long long a, long long n, long long mod) {
+    long long res = 1;
+    while (n > 0) {
+        if (n & 1) res = res * a % mod;
+        a = a * a % mod;
+        n >>= 1;
+    }
+    return res;
 }
 long long pow(long long x, long long n) {
     long long ret = 1;
     while (n > 0) {
+		x %= MOD;
         if (n & 1) ret *= x;  // n の最下位bitが 1 ならば x^(2^i) をかける
-		ret%=MOD;
+		ret %= MOD;
+		x %= MOD;
         x *= x;
+		x %= MOD;
         n >>= 1;  // n を1bit 左にずらす
     }
     return ret;
@@ -69,59 +83,49 @@ int main()
 {
 	ll n, l;
 	cin >> n>> l;
+	COMinit();
 	vector<string> s(n);
 	rep(i,n) cin >> s[i];
 	vector<ll> bits(n);
 
-	init_nCk(l,25);
-	rep(i,26){
-		cout << nCk(i) << " ";
-	}
-	cout << endl;
 	rep(i,n){
 		ll bit = 0;
 		rep(j,s[i].size()){
 			int num = s[i][j] - 'a';
 			bit |= (1<<num);
 		}
-		//debug(bit);
 		bits[i] = bit;
 	}
 	ll ans = 0;
-	for(int i = 1; i < (1<<26); i++){
-		//bitで表すような文字の選び方が可能かどうかを判定する
-		// i & s[i]が　iであれば作成可能
+
+	dp[1] = 1;
+	For(i,2,27){
+		// dp[i] := i^L - i_C_(i-1) * dp[i-1] - i_C_(i-2) * dp[i-2]
+		if(l<i) continue;
+		ll now = modpow(i,l,MOD);
+		ll minus = 0;
+		for(int j = i - 1; j >= 1; j--){
+			minus += COM(i,j) * dp[j];
+			minus %= MOD;
+		}
+		dp[i] = now - minus;
+		if(dp[i] < 0) dp[i] += MOD;
+	}
+	//
+//	For(i,1,27){
+//		cout << dp[i] << " ";
+//	}
+//	cout << endl;
+	for(int tmp = 1; tmp < (1<<26); tmp++){
 		bool can = false;
 		rep(j,n){
-			if((i & bits[j]) == i){
-				can = true;
-				break;
-			}
+			if((tmp&bits[j]) == tmp) can = true;
 		}
 		if(!can) continue;
-		// i の立ってる数が文字数よりも長い場合は作成できないことに注意
-		bitset<26> a(i);
-		int use = a.count();
-		if(use > l) continue;
-		// l - 1 choose use - 1 を答えに足す
-		ll now = nCk(use);
-		debug(i);
-		debug(now);
-		ll mul1 = 1;
-		ll USE = use;
-		while(USE){
-			mul1 *= use;
-			mul1 %= MOD;
-			USE--;
-		}
-		ll mul2 = pow(use,l-use); // (use)^(L-use)
-		now *= mul1;
-		now %= MOD;
-		now *= mul2;
-		now %= MOD;
-		ans += now;
+		bitset<26> nowbit(tmp);
+		int use = nowbit.count();
+		ans += dp[use];
 		ans %= MOD;
-		debug(now);
 	}
 	cout << ans << endl;
 }

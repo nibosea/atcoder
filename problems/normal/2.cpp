@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
 using ll = long long;
@@ -7,6 +8,8 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
+#define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
+#define per(i, n)       Per(i,n,0)
 #define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
@@ -26,9 +29,34 @@ const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
-vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+	int n;
+	cin >> n;
+	if(n%2) return 0;
+	for(int i = 0; i < (1<<n); i++){
+		bitset<20> bit(i);
+		//cout << bit << endl;
+		string ans = "";
+		int zero = 0;
+		int iti = 0;
+		bool flag = true;
+		if(bit.count() != (n/2)) continue;
+		for(int j = n-1; j >= 0; j--){
+			if(bit.test(j) == 1) iti++;
+			else zero++;
+			if(iti > zero) {
+				flag = false;
+				break;
+			}
+		}
+		if(flag){
+			for(int j = n-1; j >= 0; j--){
+				if(bit.test(j))ans += ")";
+				else ans += "(";
+			}
+			cout << ans << endl;
+		}
+	}
 }

@@ -30,7 +30,39 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+vector<int> to[100500];
+int col[1<<18];
+
+void dfs(int pos, int cur){
+	col[pos] = cur;
+	for(int nv : to[pos]){
+		if(col[nv] >= 1) continue;
+		dfs(nv, 3-cur);
+	}
+}
 int main()
 {
-
+	int n;
+	cin >> n;
+	rep(i,n-1){
+		int x, y;
+		cin >> x>> y;
+		--x, --y;
+		to[x].push_back(y);
+		to[y].push_back(x);
+	}
+	dfs(0,1);
+	int one = 0;
+	rep(i,n) if(col[i]==1)one++;
+	int ser = 2;
+	if(one >= n/2) ser = 1;
+	int cnt = 0;
+	rep(i,n){
+		if(col[i] == ser) {
+			cout << i + 1 << " ";
+			cnt++;
+			if(cnt == n/2) break;
+		}
+	}
+	cout << endl;
 }

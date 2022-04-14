@@ -32,5 +32,21 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	int n, k;
+	cin >> n>> k;
+	vector<int> a(n);
+	rep(i,n) cin >> a[i];
+	vector<int> b(n);
+	rep(i,n) cin >> b[i];
+	ll cnt = 0;
+	rep(i,n){
+		cnt += abs(a[i] - b[i]);
+	}
+	if(cnt > k){
+		coN();
+		return 0;
+	}
+	cnt -= k;
+	if(cnt%2==0) coY();
+	else coN();
 }

@@ -32,5 +32,10 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	ll a, b, c;
+	cin >> a>> b>> c;
+	ll G = __gcd(a,b);
+	G = __gcd(G,c);
+	ll ans = a/G-1 + b/G-1 + c/G-1;
+	cout << ans << endl;
 }

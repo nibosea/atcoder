@@ -7,7 +7,7 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -32,29 +32,21 @@ int main()
 {
 	int n;
 	cin >> n;
-	vector<int> a(n);
-	rep(i,n) cin >> a[i];
-
-	int l = 0; 
-	int r = n - 1;
-	bool reverse = false;
-	int cnt = 0;
-	while(r>=l){
-		// reverseなときは、1が消える
-		if(a[r] == 0 + reverse){ 
-			// reverseがtrueのとき、reverseは数値の１として扱われる。 
-			// reverseがfalseのとき、reverseは数値の0として扱われる。
-			// a[r] == (0 + 0)
-			r--;// bの操作を行う
-
-			
-		} else if(a[l] == 0 + reverse){
-			l++;
-			//cout << "左を消\n";
-			reverse = 1 - reverse;
-		}
-		else {
-			//cout << "操作無理\n";
+	map<string, int> mp;
+	vector<string> S(n), T(n);
+	rep(i,n) cin >> S[i] >> T[i];
+	rep(i,n){
+		string s = S[i];
+		string t = T[i];
+		mp[t]++;
+		if(s!=t) mp[s]++;
+	}
+	rep(i,n){
+		string s = S[i];
+		string t = T[i];
+		// sが2つ以上ある場合、sは使えない
+		bool flag = false;
+		if(mp[s] >= 2 && mp[t] >= 2){
 			coN();
 			return 0;
 		}

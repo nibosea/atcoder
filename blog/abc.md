@@ -2098,7 +2098,7 @@ next permutationっぽいなコレ。こういう問題頭壊れるｯｽﾈ
 
 
 ## [2020-04-04](https://iloveconviniboshi.hatenablog.com/entry/2022/04/04/193621)
- 
+
 ### [ABC174 F- Range Set Query](https://atcoder.jp/contests/abc174/tasks/abc174_f)
 
 [Mo's Algorithm, 区間クエリ,区間の種類]
@@ -2106,3 +2106,87 @@ next permutationっぽいなコレ。こういう問題頭壊れるｯｽﾈ
 Moの中身は分からないけど、とりあえずこれ参照しよう！
 [こーど](https://atcoder.jp/contests/abc174/submissions/30719970)
 注意点として、C++を使っていたら cin や cout endlをしちゃうとTLEになります（うげ〜）
+
+### [2022年4月11日くらい](https://iloveconviniboshi.hatenablog.com/entry/2022/04/11/010603)
+
+### [ARC138 A-Lerger Score](https://atcoder.jp/contests/arc138/tasks/arc138_a)
+
+[添字を持った配列、優先度付きキュー、だんだん選べるものが増えていくタイプ,ソート]
+
+スコアをS+1にすると誤読していた。
+1点以上上げれば良いのだから、Aにある要素を一つだけそれより大きいものに変えてやれば良い。
+
+### [ARC138 B- 01 Generation](https://atcoder.jp/contests/arc138/tasks/arc138_b)
+
+[0と1からなる数列の構築、構築、操作を逆に考える]
+操作を逆に考えると、ヤル操作は、後ろの０を取るか、前の０を取ってFlipかの２通り。
+
+後ろの０を取るのを優先してやって、空の文字列にできれば勝ち
+
+### [ARC138 D-Differ by K bits](https://atcoder.jp/contests/arc138/tasks/arc138_d)
+
+[XORの基底？]
+なんか頑張った気がするけど解けなかった。難しかった。よう復習。
+
+### [ABC247 C- 1 2 1 3 1 2 1](https://atcoder.jp/contests/abc247/tasks/abc247_c)
+
+[再帰、butilin_ctz, popcount]
+
+[naoyaさんのGCCのビルトイン関数メモ](https://naoyat.hatenablog.jp/entry/2014/05/12/143650)が参考になりそう。
+
+適当な再帰関数を書いてあげると通る。
+
+### [ABC247 D- Cylinder](https://atcoder.jp/contests/abc247/tasks/abc247_d)
+
+[DはdequeueのD,何が何個あるかが大事]
+
+5を５個追加ってとき、5,5,5,5,5って追加するなじゃなくて、(5,5)を追加する。
+
+### [ABC247 E- Max Min](https://atcoder.jp/contests/abc247/tasks/abc247_e)
+
+[セグ木？うるせえよ。DP、状態を持つDP] <br>
+
+### [ABC247 F- Cards](https://atcoder.jp/contests/abc247/tasks/abc247_f)
+
+[Lucas数、連続した2個のうち1個は取るやつ、リュカ数]
+
+類題があった気がするけど忘れた。ブログを書こうね。<br>
+
+見たことがある感じ、カードの表裏は辺を貼るみたいなの典型なのかな？<br>
+
+UnionFindでくっつけて、みたいな感じなところは直感で出来たんだけど、島のサイズに対する答えの求め方がわからなかった。でもそれがLucas数ってやつになるらしい
+
+注意点としては例えば5つに対して取る取らないを決める。ただし、連続して2回取らないをしちゃだめってトキ
+
+xoxoxはNGです。みたいな感じな注意がある。でもそれもリュカ数で数えられちゃうらしい。すごい。
+
+##  [2022年4月13日](https://iloveconviniboshi.hatenablog.com/entry/2022/04/13/133508)
+
+### [ABC236 F- Spices](https://atcoder.jp/contests/abc236/tasks/abc236_f)
+
+[XORの基底、内部は分からない、類題あり、解説動画優秀、掃き出し法]
+
+[先日行われたARC138 D-Differ by K bits](https://atcoder.jp/contests/arc138/tasks/arc138_d)の類題ってことで良いですか？良いですよ。<br>
+
+掃き出し法のわけが分からない実装ですが、
+
+- [公式解説 ](https://youtu.be/kuZBAs80RRo) by [**admin**](https://atcoder.jp/users/admin)
+
+を見るとちょっとだけ「あー、そんな感じノコとしてるのね。知らんけど」ってなります。
+
+```cpp
+for(int e : order){
+		
+		for(int b : basis){
+			chmin(e, e ^ b);
+		}
+		if(e){
+			basis.push_back(e);
+		
+		}
+	}
+```
+
+このコード、Twitterでのし袋さんがのけてたやつみたいな感じです。
+
+これをすると、basisに配列 orderの中から基底が取り出せるらしい。

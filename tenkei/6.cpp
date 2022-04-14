@@ -32,40 +32,47 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	int n;
-	cin >> n;
-	vector<int> a((1<<n)-1);
-	rep(i,(1<<n)-1) cin >> a[i];
-	// 値段でソートしたい
-	vector<int> order((1<<n)-1);
-	iota(order.begin(), order.end(), 1);
-	sort(order.begin(),order.end(), [&](int i, int j){
-		return a[i-1] < a[j-1];
-	});
+/* 26個、配列の要素がNのものを用意する。
+1個目の配列は、a[1~N]で、i番目より後に出てくるaの位置。みたいな感じで作る。
+26＊10^5でこの配列は作れるので、いけそう
+*/
+	int n, k;
+	cin >> n>> k;
+	string s;
+	cin >> s;
+	vector next_app(26, vector<int>(n+1,-1));
+	for(int i = n-1; i >= 0; i--){
+		int c = s[i] - 'a';
+		rep(j,26){
+			// next_app[j][i] := jがi番目を含めて以降に初めて出てくる位置を格納する
+			if(c == j){
+				// i番目に+1する
+				next_app[j][i] = i;
+			} else {
+				next_app[j][i] = next_app[j][i+1];
+			}
+		}
+	}
 
-	vector<int> basis(0);
-	ll ans = 0;
-	vector<int> maes(0);
-	for(int e : order){
-		ll mae = e;
-		for(int b : basis){
-			chmin(e, e ^ b);
+	string ans = "";
+	int left = k;
+	rep(i,n){
+		rep(j,26){
+			if(left==0) break;
+			// 一番最初に見つけたものを採用する
+			if(next_app[j][i] == -1) continue;
+			// next番目に飛んだら文字数足りなくなるかもしれない
+			int next = next_app[j][i];
+			// next番目に飛んだ場合の残りの文字数を考える
+			int nokori = n - next ;
+			if(nokori < left) continue; 
+			// 選んで良い場合
+			ans += char(j+'a');
+			left--;
+			i = next ;
+			break;
 		}
-		if(e){
-			basis.push_back(e);
-			maes.push_back(mae);
-		}
 	}
-	debug(basis.size());
-	debug(maes.size());
-	for(auto b:basis){
-		cout << b <<" " ;
-	}
+	cout << ans;
 	cout << endl;
-	for(auto b:maes){
-		cout << b <<" " ;
-		ans += a[b-1];
-	}
-	cout << endl;
-	cout << ans << endl;
 }

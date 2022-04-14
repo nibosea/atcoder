@@ -7,7 +7,9 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
+#define per(i, n)       Per(i,n,0)
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -26,38 +28,47 @@ const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
-vector<int> to[200'005];
 //Write From this Line
+vector<int> to[200'005];
 int main()
 {
 	int n;
 	cin >> n;
-	vector<int> a(n);
-	rep(i,n) cin >> a[i];
-
-	int l = 0; 
-	int r = n - 1;
-	bool reverse = false;
-	int cnt = 0;
-	while(r>=l){
-		// reverseなときは、1が消える
-		if(a[r] == 0 + reverse){ 
-			// reverseがtrueのとき、reverseは数値の１として扱われる。 
-			// reverseがfalseのとき、reverseは数値の0として扱われる。
-			// a[r] == (0 + 0)
-			r--;// bの操作を行う
-
-			
-		} else if(a[l] == 0 + reverse){
-			l++;
-			//cout << "左を消\n";
-			reverse = 1 - reverse;
+	rep(i,n-1){
+		int a, b;
+		cin >> a>> b;
+		--a, --b;
+		to[a].push_back(b);
+		to[b].push_back(a);
+	}
+	// 木の直径
+	int s = 0;
+	queue<int> q;
+	vector<int> seen(n,-1);
+	int last_ind = 0;
+	auto add = [&](int nv, int ncost){
+		if(seen[nv]==-1) {
+			seen[nv] = ncost;
+			q.push(nv);
+			last_ind = nv;
 		}
-		else {
-			//cout << "操作無理\n";
-			coN();
-			return 0;
+		return ;
+	};
+	add(0,0);
+	while(!q.empty()){
+		int v = q.front(); q.pop();
+		int cost = seen[v] + 1;
+		for(auto nv: to[v]){
+			add(nv,cost);
 		}
 	}
-	coY();
+	s = last_ind;
+	rep(i,n) seen[i] = -1;
+	add(s,0);
+	while(!q.empty()){
+		int v = q.front(); q.pop();
+		int cost = seen[v] + 1;
+		for(auto nv: to[v]) add(nv,cost);
+	}
+	cout << seen[last_ind] + 1 << endl;
 }

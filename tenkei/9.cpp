@@ -10,7 +10,7 @@ typedef pair<int,int> P;
 #define rep(i, n)       For(i, 0, n)
 #define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
 #define per(i, n)       Per(i,n,0)
-#define debug(x)  cerr << #x << " = " << (x) << endl;
+
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -34,38 +34,46 @@ int main()
 {
 	int n;
 	cin >> n;
-	vector<int> a((1<<n)-1);
-	rep(i,(1<<n)-1) cin >> a[i];
-	// 値段でソートしたい
-	vector<int> order((1<<n)-1);
-	iota(order.begin(), order.end(), 1);
-	sort(order.begin(),order.end(), [&](int i, int j){
-		return a[i-1] < a[j-1];
-	});
+	vector<P> p(n);
+	rep(i,n) cin >> p[i].first >> p[i].second;
+	double ans = 0;
+	rep(i,n){
+		auto [cx, cy] = p[i];
+		// 中心となる点
+		vector<double> args(0);
+		rep(j,n){
+			if(i==j)continue;
+			auto [nx, ny] = p[j];
+			nx -= cx;
+			ny -= cy;
+			double arg = atan2(ny,nx)*180 / PI;
+			args.push_back(arg);
 
-	vector<int> basis(0);
-	ll ans = 0;
-	vector<int> maes(0);
-	for(int e : order){
-		ll mae = e;
-		for(int b : basis){
-			chmin(e, e ^ b);
 		}
-		if(e){
-			basis.push_back(e);
-			maes.push_back(mae);
+		SORT(args);
+		int sz = args.size();
+		rep(j,sz){
+			double arg = args[j];
+			double find = (arg+180);
+			if(find >= 360) find -= 360;
+			int ind = lower_bound(args.begin(),args.end(), find) - args.begin();
+			// ind-1, ind , ind + 1ぐらいをやっておけば良さそう
+			ind--;
+			rep(k,3){
+				if(ind < 0) {
+					ind++;
+					continue;
+				}
+				if(ind >= sz) continue;
+				//arg と args[ind]の角度を求める
+				double arg2 = args[ind];
+				double diff = abs(arg- arg2);
+				double kaku = min(diff, 360-diff);
+				chmax(ans,kaku);
+				ind++;
+			}
 		}
 	}
-	debug(basis.size());
-	debug(maes.size());
-	for(auto b:basis){
-		cout << b <<" " ;
-	}
-	cout << endl;
-	for(auto b:maes){
-		cout << b <<" " ;
-		ans += a[b-1];
-	}
-	cout << endl;
+	cout << setprecision(15);
 	cout << ans << endl;
 }

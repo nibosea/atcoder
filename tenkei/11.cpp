@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
 using ll = long long;
@@ -29,7 +30,32 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+ll dp[5010][5010];
 int main()
 {
-
+	ll n;
+	cin >> n;
+	ll MAX_D = 0;
+	vector<tuple<int, int, int>> t(n);
+	rep(i,n){
+		ll d, c, s;
+		cin >> d>> c>> s;
+		t[i] = {d,c,s};
+	}
+	SORT(t);
+	rep(i,n){
+		ll d, c, s;
+		tie(d,c,s) = t[i];
+		rep(j,5000){
+			// dp[i][j]　を決める
+			chmax(dp[i+1][j], dp[i][j]);
+			if(j + c <= d){
+				dp[i+1][j+c] = max(dp[i+1][j+c], dp[i][j] + s);
+			}
+		}
+		
+	}
+	ll ans = 0;
+	rep(i,5010) chmax(ans, dp[n][i]);
+	cout << ans << endl;
 }

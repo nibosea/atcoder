@@ -1,3 +1,4 @@
+// touristのパクリ
 #include <bits/stdc++.h>
 #include <atcoder/all>
 
@@ -30,7 +31,37 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+void tourist(){
+	int n;
+	cin >> n;
+	vector<int> order(1<<n);
+	vector<int> c(1<<n);
+	For(i,1,1<<n) cin >> c[i];
+	iota(order.begin(), order.end(), 0);
+	sort(order.begin(), order.end(), [&](int i, int j){
+		return c[i] < c[j];
+	});
+	vector<int> basis(n);
+	ll ans = 0;
+	for (int x : order){
+
+		int mask  = x;
+		rep(i,n){
+			if(mask&(1<<i)){
+				if(basis[i] == 0){
+					basis[i] = mask;
+					break;
+				}
+			mask ^= basis[i];
+			}
+		}
+		if(mask != 0) {
+			ans += c[x];
+			}
+	}
+	cout << ans << endl;
+}
 int main()
 {
-
+	tourist();
 }

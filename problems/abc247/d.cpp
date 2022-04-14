@@ -7,8 +7,6 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-#define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
-#define per(i, n)       Per(i,n,0)
 #define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
@@ -28,37 +26,46 @@ const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
+vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-	int n, m;
-	cin >> n>> m;
-	vector<P> p(m);
-	rep(i,m){
-		int x,y;
-		cin >> x>>y;
-		--x, --y;
-		p[i] = P(x,y);
-	}
-	vector<int> va_L(n,0); // va_L[i]:= 点iにLがある辺の個数
-	vector<int> va_R(n,0); // va_R[i]:= 点iにRがある辺の個数
-	vector<int> vb_L(n+1,0); // vb_L[i]:= 点iまで[0,i)にLがある辺の個数の累積
-	vector<int> vb_R(n+1,0); // vb_R[i]:= 点iまでにRがある辺の個数の累積　
-
-	// va_L, va_Rを作成
-	rep(i,m){
-		int l,r;
-		tie(l,r)= p[i];
-		va_L[l]++;
-		va_R[r]++;
-	}
-	
-	// vb_L, vb_Rの作成
-	rep(i,n){
-		vb_L[i+1] = vb_L[i] + va_L[i];
-		vb_R[i+1] = vb_R[i] + va_R[i];
-	}
-	rep(i,n+1){
-		cout << vb_L[i] << " ";
+	ll q;
+	cin >> q;
+	deque<P> deq;
+	while(q--){
+		ll t;
+		cin >> t;
+		ll x, c;
+		if(t==1){
+			cin >> x>> c;
+			// xが書かれたのをc個入れる
+			deq.push_back(P(x,c));
+		} else {
+			cin >> c;
+			// c個取り出す。
+			ll ans = 0;
+			while(c > 0){
+				P now = deq.front();
+				deq.pop_front();
+				// 取り出した
+				ll num = now.first;
+				ll kazu = now.second;
+				if(kazu <= c){
+					// cよりも少ないなら全部使える
+					c -= kazu;
+					ans += num * kazu;
+				} else {
+					// cよりも多くあるなら、c個だけ使う
+					ll use = c;
+					ans += use * num;
+					kazu -= c;
+					c = 0;
+					//numがkazu個
+					deq.push_front(P(num,kazu));
+				}
+			}
+			cout <<ans << endl;
+		}
 	}
 }

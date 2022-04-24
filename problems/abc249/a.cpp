@@ -32,5 +32,29 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+	int n, a, b, c, d, e, f, x;
+	cin >> a>> b>> c>> d>> e>> f>> x;
+	int sum = 0;
+	ll T = 0;
+	ll Ao = 0;
+	int cnt = 0;
+	while(sum < x){
+		sum++;
+		if(cnt < a) T += b;
+		cnt++;
+		if(cnt >= a + c) cnt = 0;
+	}
+	cnt = 0;
+	sum = 0;
+	while(sum < x){
+		sum++;
+		if(cnt < d) Ao += e;
+		cnt++;
+		if(cnt >= d + f) cnt = 0;
+	}
+	if(T > Ao){
+		coT();
+	} else if(T == Ao){
+		puts("Draw");
+	} else coA();
 }

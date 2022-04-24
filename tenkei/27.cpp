@@ -32,5 +32,16 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	int n;
+	cin >> n;
+	string s;
+	map<string,bool> mp;
+	rep(i,n){
+		cin >> s;
+		if(mp[s])continue;
+		else {
+			mp[s]=true;
+			cout << i + 1<< endl;
+		}
+	}
 }

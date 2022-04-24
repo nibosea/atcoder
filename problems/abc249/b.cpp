@@ -32,5 +32,21 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+	string s;
+	cin >> s;
+	bool Ca = false;
+	bool ca = false;
+	map<char, bool> mp;
+	rep(i,s.size()){
+		char c = s[i];
+		if(mp[c]){
+			coN();
+			return 0;
+		}
+		mp[c] = true;
+		if('a' <= c && c <= 'z') ca = true;
+		if('A' <= c && c <= 'Z') Ca = true;
+	}
+	if(ca && Ca) coY();
+	else coN();
 }

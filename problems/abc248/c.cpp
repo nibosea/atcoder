@@ -30,7 +30,31 @@ const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
+ll dp[55][3000];
 int main()
 {
-
+	ll n, m, k;
+	cin >> n>> m>> k;
+	// N項の和がK以下。
+	// 各項は1~Mまでの値をとる
+	// 何通りあるか
+	// N <= 50;
+	dp[0][0] = 1;
+	rep(i,n){
+		// 1項ずつ決める
+		rep(j,k+1){
+			// dp[i][j]:= i項目までで和がjのときの通り数
+			For(k,1,m+1){
+				// kを入れる
+				dp[i+1][j+k] += dp[i][j];
+				dp[i+1][j+k] %= MOD;
+			}
+		}
+	}
+	ll ans = 0;
+	For(i,1,k+1){
+		ans += dp[n][i];
+		ans %= MOD;
+	}
+	cout << ans << endl;
 }

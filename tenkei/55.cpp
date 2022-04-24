@@ -30,7 +30,31 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+vector<int> to[100500];
 int main()
 {
-
+	int n, m;
+	cin >> n>> m;
+	rep(i,m){
+		int x, y;
+		cin >> x>> y;
+		--x, --y;
+		to[x].push_back(y);
+		to[y].push_back(x);
+	}
+	int ans = 0;
+	rep(i,n){
+		SORT(to[i]);
+		if(to[i].size() == 1){
+			if(to[i][0] < i){
+				ans ++;
+				debug(i);
+			}
+		} else {
+			if(to[i][1] > i && to[i][0] < i){
+				ans++;
+			}
+		}
+	}
+	cout << ans << endl;
 }

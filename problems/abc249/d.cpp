@@ -32,5 +32,8 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+	int n;
+	cin >> n;
+	vector<ll> a(n);
+	rep(i,n) cin >> a[i];
 }

@@ -32,5 +32,19 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+	string s;
+	cin >> s;
+	vector<bool> mp(10,false);
+	rep(i,9){
+		char c = s[i];
+		int k = c - '0';
+		mp[k] = true;
+	}
+	rep(i,10){
+		if(mp[i]==false){
+			cout << i << endl;
+			return 0;
+		}
+	}
+	
 }

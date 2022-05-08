@@ -32,5 +32,20 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+    int q;
+    cin >> q;
+    deque<int> deq;
+    while(q--){
+        int t; cin >> t;
+        int x; cin >> x;
+        if(t == 1){
+            deq.push_front(x);
+        }
+        if(t == 2){
+            deq.push_back(x);
+        }
+        if(t == 3){
+            cout << deq[x-1] << endl;
+        }
+    }
 }

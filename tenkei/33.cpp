@@ -32,5 +32,13 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+    int h, w;
+    cin >> h >> w;
+    if(h==1 || w == 1){
+        cout << h * w << endl;
+        return 0;
+    }
+    int ans = (w+1)/2;
+    ans *= (h+1) / 2;
+    cout << ans << endl;
 }

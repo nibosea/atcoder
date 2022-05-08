@@ -1,4 +1,3 @@
-// touristのパクリ
 #include <bits/stdc++.h>
 #include <atcoder/all>
 
@@ -31,37 +30,65 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
-void tourist(){
-	int n;
-	cin >> n;
-	vector<int> order(1<<n);
-	vector<int> c(1<<n);
-	For(i,1,1<<n) cin >> c[i];
-	iota(order.begin(), order.end(), 0);
-	sort(order.begin(), order.end(), [&](int i, int j){
-		return c[i] < c[j];
-	});
-	vector<int> basis(n);
-	ll ans = 0;
-	for (int x : order){
-
-		int mask  = x;
-		rep(i,n){
-			if(mask&(1<<i)){
-				if(basis[i] == 0){
-					basis[i] = mask;
-					break;
-				}
-			mask ^= basis[i];
-			}
-		}
-		if(mask != 0) {
-			ans += c[x];
-			}
-	}
-	cout << ans << endl;
-}
+ll dp[3005][3005][2];
 int main()
 {
-	tourist();
+	ll n, p;
+	cin >> n >> p;
+	/* dp[i][j][con] := i 列目まで見たときに
+		 									j 辺削除していて
+											i 列目の上下がなんらかの経路で繋がっているか(connectか)
+											最終的な答えは，dp[n][J(1<=n-1)][con]
+	*/ 
+	dp[0][0][0] = 1;
+	dp[1][0][1] = 1;
+	dp[1][1][0] = 1;
+	for(int i = 1; i < n; i++){
+		// i+1列目を決める( i-1列　と　i列の間の辺と，i列の縦の辺をどうするかを考える
+		// 配るDPで考えたい
+		for(int j = 0; j <= n - 1; j++){
+			// j辺削除している状態からの遷移
+			for(int con = 0; con <= 1; con++){
+				if(con == 0){
+					// i列目の上下が繋がっていない場合
+					// 2辺削除することは出来ない。どのように２本削除しても，その後一生連結でなくなる
+					// 1辺削除する場合
+						/*	縦の辺を１本削除
+									not conへの遷移となる
+								横の１本をどっちか消す場合
+									i+1がconへの遷移となりそうだが，
+									実はこの場合，連結にはならないので１本だけ消してconにすることは無理。
+									よって，０本削除でconへの遷移がうまれる
+						 */
+					//not con
+					dp[i+1][j+1][0] += dp[i][j][0];
+					dp[i+1][j+1][0] %= p;
+					// con
+					dp[i+1][j][1] += dp[i][j][0];
+					dp[i+1][j][1] %= p;
+				} else {
+					// conからの遷移
+					// 0本削除は何も考えなくてもconっぽい感じするしconだろ
+					dp[i+1][j][1] += dp[i][j][1];
+					dp[i+1][j][1] %= p;
+					// 1本削除どのように削除いても，conなので，どのポン消すかで３通りうまれる
+					dp[i+1][j+1][1] += 3 * (dp[i][j][1]);
+					dp[i+1][j+1][1] %= p;
+					/* 2本削除
+						 	縦と横1本を消す場合，
+									not　conへの遷移となる
+							横の2本を消す場合
+									conではあるが，全体として今後どう頑張っても連結にならないのでむり
+					 */
+					// 縦と横を１本ずつ消す。どっちの横を残すかで二通り
+					dp[i+1][j+2][0] += dp[i][j][1] * 2;
+					dp[i+1][j+2][0] %= p;
+				}
+			}
+		}
+	}
+	ll ans = 0;
+	For(i,1,n){
+		cout << dp[n][i][1] << endl;
+	}
 }

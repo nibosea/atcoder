@@ -32,5 +32,34 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
+    int left = 1, right = n+1;
+    while(right - left > 1){
+        int mid = (left+right) / 2;
+        bool judge = false;
+        map<int, int> mp;
+        int cnt = 0;
+        for(int j = 0; j < mid; j++){
+            int num = a[j];
+            mp[num]++;
+            if(mp[num] == 1) cnt ++;
+        }
+        if(cnt <= k) judge = true;
+        for(int new_i = mid; new_i < n; new_i++){
+            if(judge) break;
+            int i = new_i;
+            int del = i - mid;
+            mp[a[del]]--;
+            if(mp[a[del]] == 0) cnt--;
+            mp[a[i]]++;
+            if(mp[a[i]] == 1)  cnt ++;
+            if(cnt <= k) judge = true;
+        }
+        if(judge) left =mid;
+        else right = mid;
+    }
+    cout << left << endl;
 }

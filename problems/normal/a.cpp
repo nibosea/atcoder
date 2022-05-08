@@ -10,7 +10,6 @@ typedef pair<int,int> P;
 #define rep(i, n)       For(i, 0, n)
 #define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
 #define per(i, n)       Per(i,n,0)
-#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -30,7 +29,51 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+ll keta(ll x){
+	ll ret = 0;
+	while(x){
+		ret++;
+		x/=10;
+	}
+	return ret;
+}
+void solve(){
+	int l, r;	
+	cin >> l >> r;
+	// f(x) := min(10x, pow(x,n)+x);
+	// f(x) > r となる最小のxを求める
+	ll ok = r, ng = 0; // ok  を←にする
+	auto judge = [&](ll x){
+		ll n = keta(x);
+		//f(x)を求める
+		ll Poo = 1;
+		while(n--){
+			Poo*=10;
+		}
+		Poo+=x;
+		ll fx = min(Poo, 10*x);
+		return fx;
+	}; 
+	while(ok - ng > 1){
+		ll mid = (ok+ng)/2;
+		if(mid < l) {
+			ng = mid;
+			continue;
+		}
+		if(judge(mid) > r) ok = mid;
+		else ng = mid;
+	}
+	ll Left=ok;
+	// f(x) > r となる最大のxを求める
+	cout << r - Left + 1 << endl;
+	
+}
 int main()
 {
+  int t;
+  cin >> t;
+  rep(i,t) solve();
+	
 
 }
+

@@ -2189,4 +2189,22 @@ for(int e : order){
 
 このコード、Twitterでのし袋さんがのけてたやつみたいな感じです。
 
-これをすると、basisに配列 orderの中から基底が取り出せるらしい。
+これをすると、basisに配列 orderの中から基底が取り出せるらしい
+
+### [2022年5月8日　日記](https://iloveconviniboshi.hatenablog.com/entry/2022/05/08/100952)
+
+本気解説，書いた。親愛なる先輩へ，愛をこめて。
+
+### [ABC248 F- Keep Connect](https://atcoder.jp/contests/abc248/tasks/abc248_f)
+
+[連結DP, 連結状態,がんばれ,記事書いた]<br>
+
+連結DPとかいうのに初挑戦した。
+気持ち，桁DPに似ている。絶対不可能な状態には遷移しないように注意しつつ，okな状態(連結な状態),非連結な状態みたいな感じ。
+ただ，桁DPと違って，一度連結になったとしてもその後連結じゃないみたいな感じになるっていうのがややこしいところ。
+
+#### [AGC057 A- Antichain of Integer Strings](https://atcoder.jp/contests/agc057/tasks/agc057_a)
+
+[凶悪二分探索,愚直死ぬ,わけわからん]
+
+よく分からないけど，わかるのはWriterのmaspyさんが天才ってことだけ。

@@ -30,42 +30,80 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+ll dp[200100][2][2][2][2];
 int main()
 {
-	int n;
-	cin >> n;
-	vector<int> a((1<<n)-1);
-	rep(i,(1<<n)-1) cin >> a[i];
-	// 値段でソートしたい
-	vector<int> order((1<<n)-1);
-	iota(order.begin(), order.end(), 1);
-	sort(order.begin(),order.end(), [&](int i, int j){
-		return a[i-1] < a[j-1];
-	});
-
-	vector<int> basis(0);
-	ll ans = 0;
-	vector<int> maes(0);
-	for(int e : order){
-		ll mae = e;
-		for(int b : basis){
-			chmin(e, e ^ b);
+	ll n;cin >>n;
+	vector<pair<ll,char>> a(2*n);
+	rep(i,2*n) cin >> a[i].first >> a[i].second;
+	SORT(a);
+	rep(i,200100)rep(j,2)rep(k,2)rep(l,2)rep(m,2) dp[i][j][k][l][m] = INF;
+	dp[0][0][0][0][0]=0;
+	rep(i,2*n){
+		// 色として使う場合
+		char col = a[i].second;
+		if(col == 'R'){
+			rep(j,2){
+				rep(k,2){
+					rep(l,2){
+						rep(m,2){
+							chmin( dp[i+1][j][k][l][m] , dp[i][(1-j)][k][l][m]);
+						}
+					}
+				}
+			}
 		}
-		if(e){
-			basis.push_back(e);
-			maes.push_back(mae);
+		if(col == 'G'){
+			rep(j,2){
+				rep(k,2){
+					rep(l,2){
+						rep(m,2){
+							chmin( dp[i+1][j][k][l][m] , dp[i][j][1-k][l][m]);
+						}
+					}
+				}
+			}
+		}
+		if(col == 'B'){
+			rep(j,2){
+				rep(k,2){
+					rep(l,2){
+						rep(m,2){
+							chmin( dp[i+1][j][k][l][m] , dp[i][j][k][1-l][m]);
+						}
+					}
+				}
+			}
+		}
+		// 白として使う場合
+		rep(j,2){
+			rep(k,2){
+				rep(l,2){
+					rep(m,2){
+						if(m == 0){
+							chmin( dp[i+1][j][k][l][m] , ll(dp[i][j][k][l][1-m] + a[i].first));
+						}
+						else {
+							chmin( dp[i+1][j][k][l][m] , ll(dp[i][j][k][l][1-m] - a[i].first));
+						}
+					}
+				}
+			}
 		}
 	}
-	debug(basis.size());
-	debug(maes.size());
-	for(auto b:basis){
-		cout << b <<" " ;
+	ll ans = INF;
+	rep(m,2){
+		chmin(ans, dp[2*n][0][0][0][m]);
 	}
-	cout << endl;
-	for(auto b:maes){
-		cout << b <<" " ;
-		ans += a[b-1];
+	rep(i,2*n+1){
+		rep(j,2) {
+		//	debug(j);
+			rep(k,2)rep(l,2)rep(m,2){
+				//cout << dp[i][j][k][l][m] << " ";
+			}
+			//cout << endl;
+		}
+		//cout << endl;
 	}
-	cout << endl;
 	cout << ans << endl;
 }

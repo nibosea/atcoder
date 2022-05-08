@@ -32,54 +32,24 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-	int n, l;
-	cin >> n>> l;
-	int k;
-	cin >> k;
-	vector<int> a(n+2);
-	a[0] = 0;
-	rep(i,n) cin >> a[i+1];
-	a[n+1] = l;
-	n+=2;
-	// 一回も切らないという選択肢がある
-	/*001
-		K回切った時の長さがX以上にできるかの二分探索
-		長さがXを超えたら切る。長さLまでの切り目を見た後に、切り目がK個以上あればスコアXは達成できる。
-		Xを大きくする
-	*/
-	ll ng = l, ok = 0;
-	while(ng-ok>1){
-		ll mid = (ng+ok) / 2;
-		int now = 0;
-		int len = 0;
-		int cut = 0;
-
-		bool flag = true;
-		rep(i,n){
-			len += a[i] - now;
-			now = a[i];
-
-
-			if(len >= mid){
-				len = 0;
-				cut++;
+	int i, v;
+	cin >> i >> v;
+	int x = 1;
+	int cnt = 1;
+	int ans = 0;
+	while (cnt <= i){
+		if(x&v){
+			ans++;
+			v-=x;
+		}
+		if(cnt ==i){
+			while(v>0){
+				ans++;
+				v-=x;
 			}
 		}
-
-
-		if(!flag){
-			cut = 0;
-			ng = mid;
-
-		}
-		if(cut > k) {
-			ok = mid;
-
-		}
-		else {
-			ng = mid;
-
-		}
+		x *= 2;
+		cnt ++;
 	}
-	cout << ok << endl;
+	cout << ans << endl;
 }

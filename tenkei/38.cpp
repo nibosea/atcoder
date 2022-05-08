@@ -32,5 +32,16 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	ll a, b;
+	cin >> a>> b;
+	ll G = __gcd(a,b);
+	b /= G;
+	if(a > ((ll)(1e18))/b){
+		cout << "Large" << endl;
+	} else {
+		if(a*b >((ll)(1e18))){
+			cout << "Large" << endl;
+		} else 
+		cout << a * b << endl;
+	}
 }

@@ -32,5 +32,38 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
-
+	int n;
+	cin >> n;
+	vector a(1010,vector<int>(1010,0));
+	vector b(1010,vector<int>(1010,0));
+	vector c(1010,vector<int>(1010,0));
+	rep(i,n){
+		int x1, y1, x2, y2;
+		cin >> x1>> y1>> x2>> y2;
+		a[x1][y1]++;
+		a[x2][y2]++;
+		a[x1][y2]--;
+		a[x2][y1]--;
+	}
+	rep(i,1000){
+		rep(j,1000){
+			b[i+1][j] = b[i][j] + a[i][j];
+		}
+	}
+	rep(i,1000){
+		rep(j,1000){
+			c[i][j+1] = c[i][j] + a[i][j];
+		}
+	}
+	map<int, int> mp;
+	For(i,0,1010){
+		For(j,0,1010){
+			int num = b[i][j] + c[i][j];
+			mp[num]++;
+		}
+	}
+	For(i,1,n+1){
+		printf("%d\n", mp[i]);
+		//cout << mp[i] << endl;
+	}
 }

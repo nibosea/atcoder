@@ -1,36 +1,47 @@
+#include <stdio.h>
 #include <bits/stdc++.h>
 #include <atcoder/all>
-
+using namespace atcoder;
+using mint = modint1000000007;
 using namespace std;
-using ll = long long;
-typedef pair<int,int> P;
-#define SORT(a) sort((a).begin(),(a).end())
-#define REV(a) reverse((a).begin(),(a).end())
-#define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
-#define rep(i, n)       For(i, 0, n)
-#define Per(i, a, b)    for(int i = (a) ; i>=(b);--i)
-#define per(i, n)       Per(i,n,0)
-#define debug(x)  cerr << #x << " = " << (x) << endl;
-template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
-template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
+#define rep(i,n) for (int i = 0; i < (n); ++i)
+#define Inf 1000000001
+int op(int a,int b){
+	return max(a,b);
+}
 
-void coY() {cout <<"Yes"<<endl;}
-void coN(){cout <<"No"<<endl;}
-void coT() {cout <<"Takahashi"<<endl;}
-void coA(){cout <<"Aoki"<<endl;}
+int e(){
+	return 0;
+}
 
-void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
-void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
+int mapping(int a,int b){
+	return max(a,b);
+}
 
-const int dy[] = {0,0,1,-1};
-const int dx[] = {1,-1,0,0};
-const ll mod = 1e9+7;
-const ll MOD = 998244353;
-const double PI=3.14159265358979323846;
-const int inf = 1001001001;
-const ll INF = 1'000'000'000'000'000'000;
-//Write From this Line
-int main()
-{
+int composition(int a,int b){
+	return max(a,b);
+}
 
+int id(){
+	return -1;
+}
+
+int main(){
+	int W,N;
+	cin>>W>>N;
+	
+	lazy_segtree<int,op,e,int,mapping,composition,id> seg(W);
+	
+	rep(i,N){
+		int L,R;
+		scanf("%d %d",&L,&R);
+		int h = seg.prod(L-1,R);
+		h++;
+		printf("%d\n",h);
+		seg.apply(L-1,R,h);
+	}
+	
+	
+	
+	return 0;
 }

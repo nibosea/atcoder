@@ -32,5 +32,46 @@ const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
 int main()
 {
+	int n, q;
+	cin >> n>> q;
+	vector<int> a(n);
+	rep(i,n) cin >> a[i];
+	for(auto x: a){
+		cout << x << " ";
+	} cout << "\nok\n";
 
+	int cnt = 0;
+	vector<int> ans(n);
+	iota(ans.begin(),ans.end(),0);
+	while(q--){
+		for(auto x: ans){
+			cout << (x+cnt)%n << " ";
+		} cout << endl;
+		int t, x, y;
+		cin >> t>> x>> y;
+		--x, --y;
+		if(t==1){
+			// swap a(x), a(y);
+			int indx = x + cnt;
+			int indy = y + cnt;
+			indx %= n;
+			indy %= n;
+			swap(ans[indx],ans[indy]);
+		}
+		else if(t==2){
+			// shift
+			// a[0] -> a[1];
+			cnt++;
+		}
+		else {
+			// out
+			debug(x);
+			int neko = (x-cnt);
+			if(x<0) neko += n;
+			int ind = ans[neko];
+			ind %= n;
+			debug(ind);
+			cout << a[ind] << endl;
+		}
+	}
 }

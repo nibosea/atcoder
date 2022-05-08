@@ -30,7 +30,39 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 //Write From this Line
+ll octet_to_ten(string s){
+	// 下の桁から足して行けば良い
+	ll x = 1;
+	ll ret = 0;
+	for(int i = s.size() - 1 ; i >= 0 ; i--){
+		ret += x * int(s[i]-'0');
+		x *= 8;
+	}
+	return ret;
+}
+
+string ten_to_nine(ll n){
+	string ret = "";
+	if(n==0) return "0";
+	while(n>0){
+		ll num = n % 9;
+		ret = char('0'+num) + ret;
+		n/=9;
+	}
+	return ret;
+}
 int main()
 {
-
+	string n;
+	cin >> n;
+	ll k; 
+	cin >> k; 
+	while(k--){
+		ll N = octet_to_ten(n);
+		string next = ten_to_nine(N);
+		n = next;
+		rep(i,n.size()) n[i] -= 3*(n[i]=='8');
+			
+	}
+	cout << n << endl;
 }

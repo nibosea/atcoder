@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())

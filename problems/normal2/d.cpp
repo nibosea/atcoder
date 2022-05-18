@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
@@ -30,5 +32,30 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
+    vector<int> cnt(n,0);
+    int cnt2 = 0;
+    vector<int> ans(0);
+    for(int i = n - 1; i >= 0; i--){
+        int ii = i + 1;
+        int j = ii + ii;
+        int balls = 0;
+        while(j <= n){
+            balls+=cnt[j-1];
+            j+=ii;
+        }
+        balls %= 2;
+        if(balls == a[i]) continue;
+        cnt2++;
+        cnt[i]=1;
+        ans.push_back(ii);
+    }
+    cout << cnt2 << endl;
+    rep(i,cnt2){
+        cout << ans[i] << " ";
+    }
+    cout << endl;
 }

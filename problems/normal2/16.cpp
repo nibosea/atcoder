@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
@@ -30,5 +32,24 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+    ll n, a, b, c;
+    cin >> n>> a>> b>> c;
+    ll ans = inf;
+    rep(ai, 10000){
+        ll sum = ai * a;
+        if(sum > n) break;
+        rep(bi,10000){
+            ll sum2= sum + bi * b;
+            if(sum2>n)break;
+            ll nokori = n - sum2;
+            if(nokori == 0){
+                chmin(ans,ll(ai+bi));
+            } else {
+                if(nokori % c == 0){
+                    chmin(ans, ai+bi+(nokori)/c);
+                }
+            }
+        }
+    }
+    cout << ans << endl;
 }

@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
@@ -30,5 +32,34 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+    ll n;
+    cin >> n;
+    vector<ll> cnts(1e7,0);
+    ll cnt = 0;
+    vector<ll> prime;
+    rep(i,2) cnts[i] = 0;
+    //cnt[i]:= i以下の素数の数
+    for(ll i = 2; i <= 1e6; i++){
+        if(cnts[i] == 0){
+            // prime
+            ll j = i+i;
+            prime.push_back(i);
+            while(j < 1e6+10){
+                cnts[j] = 1;
+                j+=i;
+            }
+            cnt++;
+        }
+        cnts[i] = cnt;
+    }
+    ll ans = 0;
+    for(auto x: prime){
+        ll k = x * x * x;
+        if(k >= n) continue;
+        // k * p <= n
+        ll p_max = n / k;
+        p_max = min(x-1,p_max);
+        ans += cnts[p_max];
+    }
+    cout << ans << endl;
 }

@@ -9,7 +9,7 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -32,20 +32,31 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-	ll w;
-	cin >> w;
-	vector<string> ans(0);
-	For(i,1,100){
-		string now = to_string(i);
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
+	int n;
+	cin >> n;
+	vector<string> s(n);
+	rep(i,n) cin >> s[i];
+	// 各秒数に対して、リールを一つしか選択することが出来ない。
+	// 同じ番目にあった場合、10秒待つ必要がある。
+	int ans = inf;
+	rep(i,10){
+		// iで揃える
+		vector<int> cnt(10,0);
+		rep(j,n){
+			string t = s[j];
+			rep(k,10){
+				int num = t[k] - '0';
+				if(num == i){
+					cnt[k]++;
+				}
+			}
+		}
+		int tmp = 0;
+		rep(j,10){
+			int neko = (cnt[j] - 1) * 10 + j;
+			tmp = max(tmp,neko);
+		}
+		ans = min(tmp, ans);
 	}
-	cout << ans.size() << endl;
-	rep(i,ans.size()){
-		cout << ans[i] << " ";
-	}
-	cout << endl;
+	cout << ans << endl;
 }

@@ -9,7 +9,7 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -32,20 +32,25 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-	ll w;
-	cin >> w;
-	vector<string> ans(0);
-	For(i,1,100){
-		string now = to_string(i);
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
+	int n, k;
+	cin >> n>> k;
+	vector<int> a(n);
+	rep(i,n) cin >> a[i];
+	vector<int> b(k);
+	rep(i,k) cin >> b[i];
+	int M = 0; // 美味しさの最大値
+	rep(i,n){
+		chmax(M,a[i]);
 	}
-	cout << ans.size() << endl;
-	rep(i,ans.size()){
-		cout << ans[i] << " ";
+	rep(i,n){
+		if(a[i] == M){
+			rep(j,k){
+				if(b[j] == i+1){
+					coY();
+					return 0;
+				}
+			}
+		}
 	}
-	cout << endl;
+	coN();
 }

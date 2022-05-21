@@ -1,15 +1,13 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 
 using namespace std;
-using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -30,22 +28,30 @@ const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
+void solve(){
+	ll n, m;
+	cin >> n>> m;
+	vector<ll> a(n);
+	rep(i,n) cin >> a[i];
+	// mod m
+	// 2乗全探索は無理だけど、やっちゃおｗ
+	ll ans = 0;
+	rep(i,n){
+		rep(j,n){
+			ll left = (a[i] % m) - (a[j] % m);
+			if(left < 0){
+				left += m;
+			}
+			left %= m;
+			ll now = a[i] + a[j] + left;
+			chmax(ans,now);
+		}
+	}
+	cout << ans << '\n';
+}
 int main()
 {
-	ll w;
-	cin >> w;
-	vector<string> ans(0);
-	For(i,1,100){
-		string now = to_string(i);
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-	}
-	cout << ans.size() << endl;
-	rep(i,ans.size()){
-		cout << ans[i] << " ";
-	}
-	cout << endl;
+	ll t;
+	cin >> t;
+	rep(i,t)solve();
 }

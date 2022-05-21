@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 
 using namespace std;
-using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
@@ -28,50 +26,48 @@ const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
+vector<int> to[200'005];
 //Write From this Line
-vector<int> to[200050];
-vector<P> T1, T2;
-bool visited[200005];
-void dfs(int v){
-	visited[v] = true;
-	for(auto nv :to[v]){
-		if(!visited[nv]){
-			T1.push_back(P(v,nv));
-			dfs(nv);
+void solve(){
+	ll n;
+	cin >> n;
+	vector<ll> a(n);
+	rep(i,n) cin >> a[i];
+	// 範囲で全部のANDを取ってやって、その範囲の最小を求めてやればいい
+	// 全部の要素が同じになるまで操作を行ってくれ。
+	// その同じになったときの値は、全部の要素のANDである
+	ll obj = (1ll<<31) - 1;
+	rep(i,n) obj &= a[i];
+	debug(obj);
+	int ans = 1923290;
+	rep(i,n){
+		debug(i);
+		int now = 0;
+		// a[i]から操作を始めた場合、何回操作をすればobjを作れるかを考える
+		ll sum = a[i];
+		int j = i + 1;
+		while(sum!=obj && j < n){
+			sum &= a[j];
+			now++;
+			j++;
 		}
-	}
-}
-void bfs(){
-	rep(i,200005)visited[i] = false;
-	queue<int> q;
-	visited[0] = true;
-	q.push(0);
-	int v;
-	while(!q.empty()){
-		v = q.front();q.pop();
-		for(auto nv:to[v]){
-			if(!visited[nv]) {
-				T2.push_back(P(v,nv));
-				visited[nv] = true;
-				q.push(nv);
-			}
+		// sum == objになれば嬉しい
+		if(sum != obj){
+			continue;
 		}
+		// 後は、a[i-1]までと、a[j]以降をobjにできればいい
+		debug(now);
+		rep(k,i) if(a[k] != obj) now++;
+		debug(now);
+		For(k,j,n) if(a[k] != obj) now++;
+		debug(now);
+		chmin(ans,now);
 	}
+	cout << ans << endl;
 }
 int main()
 {
-	int n, m;
-	cin >> n>> m;
-	rep(i,m){
-		int x, y;
-		cin >> x>> y;
-		--x, --y;
-		to[x].push_back(y);
-		to[y].push_back(x);
-	}
-	// T1の構築、連結成分の１ループを見つければいい
-	dfs(0);
-	bfs();
-	for(auto p:T1) cout << p.first+1 << " " <<  p.second+1 << endl;
-	for(auto p:T2) cout << p.first+1 << " " << p.second+1 << endl;
+	int t;
+	cin >> t;
+	rep(i,t) solve();
 }

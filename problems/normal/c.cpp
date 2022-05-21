@@ -9,7 +9,7 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -32,20 +32,21 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-	ll w;
-	cin >> w;
-	vector<string> ans(0);
-	For(i,1,100){
-		string now = to_string(i);
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
+	int h, w;
+	cin >> h>> w;
+	vector<string> s(h);
+	rep(i,h) cin >> s[i];
+	int ans = 0;
+	For(i,1,h-1){
+		For(j,1,w-1){
+			int cnt = 0;
+			rep(k,4){
+				if(s[i+dx[k]][j+dy[k]] == '.') cnt++;
+			}
+			if(cnt ==2 || cnt == 4){
+				ans++;
+			}
+		}
 	}
-	cout << ans.size() << endl;
-	rep(i,ans.size()){
-		cout << ans[i] << " ";
-	}
-	cout << endl;
+	cout << ans << endl;
 }

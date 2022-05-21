@@ -1,15 +1,13 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 
 using namespace std;
-using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -30,22 +28,23 @@ const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
+vector<string> ans = { "overFlow", "filled", "Unfilled" };
+
+void solve(){
+	int w, x, y , z;
+	cin >> w>> x>> y >> z;
+	// Wリットル入っています、 Y liitres/hour　入ります。　Z時間つけっぱなしでした、 Xが容量です
+	ll sum = w + y * z;
+	string an = ans[2];
+	if(sum > x) {
+		an = ans[0];
+	} else if(sum == x) an = ans[1];
+	cout << an << endl;
+	
+}
 int main()
 {
-	ll w;
-	cin >> w;
-	vector<string> ans(0);
-	For(i,1,100){
-		string now = to_string(i);
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-	}
-	cout << ans.size() << endl;
-	rep(i,ans.size()){
-		cout << ans[i] << " ";
-	}
-	cout << endl;
+	int t;
+	cin >> t;
+	rep(i,t) solve();
 }

@@ -9,7 +9,7 @@ typedef pair<int,int> P;
 #define REV(a) reverse((a).begin(),(a).end())
 #define For(i, a, b)    for(int i = (a) ; i < (b) ; ++i)
 #define rep(i, n)       For(i, 0, n)
-
+#define debug(x)  cerr << #x << " = " << (x) << endl;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
@@ -32,20 +32,35 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-	ll w;
-	cin >> w;
-	vector<string> ans(0);
-	For(i,1,100){
-		string now = to_string(i);
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
-		now += "00";
-		ans.push_back(now);
+	ll n;
+	cin >> n;
+	vector<ll> a(n);
+	rep(i,n) cin >> a[i];
+	map<ll, ll> mp;
+	rep(i,n){
+		mp[a[i]]++;
 	}
-	cout << ans.size() << endl;
-	rep(i,ans.size()){
-		cout << ans[i] << " ";
+	// 2つ一致、3つ一致を数え上げて全体から引く
+	ll ans = 1; // ans = nC3
+	ans *= n * (n-1) * (n-2);
+	ans /= 6;
+	ll minus = 0;
+	for(auto x: mp){
+		ll kazu = x.second;
+		// kazu C 2
+		ll tmp = 0;
+		if(kazu >= 2){
+			tmp += (kazu * (kazu-1)) / 2; // 2つ選ぶ場合
+			// 残り一つを他のn-kazuから選ぶ
+			tmp *= (n-kazu);
+		}
+		if(kazu >= 3){
+			// 3つ選ぶ倍kazuC3
+			ll neko = 1;
+			neko *= (kazu * (kazu-1) * (kazu-2))/6;
+			tmp += neko;
+		}
+		minus += tmp;
 	}
-	cout << endl;
+	cout << ans - minus << endl;
 }

@@ -3,6 +3,7 @@
 
 using namespace std;
 using namespace atcoder;
+using mint = atcoder::modint1000000007;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
@@ -30,28 +31,46 @@ const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
-ll dp[505][505];
+mint dp_tree[505][505];
+mint dp_forest[505][505];
 int main()
 {
 	int n;
 	cin >> n;
-	vector<int> p(n);
-	rep(i,n) cin >> p[i];
-	//xを新たに木に追加するときのコトを考える
-	// xm < x,  x < XMとしてかんがえる, xは根の子供になるか、1個前の頂点の子になるか、1子前の頂点の親の子になるか…
-	// つまり！ｘをp[i]としたとき、yをp[i-1]とする
-	// yの親をたどっていったときの子になれるかどうかで判断すれば良い！
-	//ただパターン数が多いのでどうやって考えラb良いかわからに
-	dp[1][0] = 1; // 1の親が0であるようなものは1通り
-	// iの子の最小値がkであるようなモノがの何通りあるか
-	dp[1][501] = 1;
-	For(i,1,n){
-		int num = a[i];
-		for(int j = 1; j <= 501; j++){
-			// dp[i][j] := iの子の最小値がjであるものが何通りあるか
-			if(dp[i][j] >= 1){
-				// jがnumよりも小さいなら、そこにつける？
+	vector<int> c(n);
+	rep(i,n) cin >> c[i];
+	rep(i,n) dp_tree[i][i] = 1;
+	// 森を作り->木を作る
+	for(int w = 0; w < n; w++){
+		for(int L = 0; L < n; L++){
+			int R = L + w;
+			//dp_forest[L][R] = sum
+			// 	dp_tree[L][R] +
+			// 	dp_tree[L][i-1] * dp_forest[i][R] (C_L < C_i) Lを根とする木をiを最左とする森の左におくので、C_L < C_iが必要。
+			mint sum = 0;
+			for(int i = L + 1; i <= R; i++){
+				if(c[L] < c[i]) sum += dp_tree[L][i-1] * dp_forest[i][R];
+			}
+			sum += dp_tree[L][R];
+			//debug(sum.val());
+			dp_forest[L][R] = sum;
+			if(L){
+				dp_tree[L-1][R] = dp_forest[L][R];
 			}
 		}
+	}
+	cout << dp_tree[0][n-1].val() << endl;
+	rep(i,n){
+		rep(j,n){
+			cout << dp_tree[i][j].val() << " ";
+		}
+		cout << endl;
+	}
+	cout << "forest\n";
+	rep(i,n){
+		rep(j,n){
+			cout << dp_forest[i][j].val() << " ";
+		}
+		cout << endl;
 	}
 }

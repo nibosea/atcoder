@@ -32,5 +32,19 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-
+	string s = "NOITCELFER"; //0-indexed
+	int n = s.size();
+	for(int i = 0; i < 26; i++){ // 回す数シーザー暗号
+		debug(i);
+		for(int j=0; j<n; j++){
+			char c = s[j];
+			int num = c - 'A';
+			num -= i;
+			if(num < 0) num += 26;
+			num %= 26;
+			c = 'A' + num;
+			cout << c;
+		}
+		cout << endl;
+	}
 }

@@ -21,44 +21,47 @@ void coA(){cout <<"Aoki"<<endl;}
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
-const int dy[] = {0,1,-1,0};
-const int dx[] = {1,0,0,-1};
+const int dy[] = {0,0,1,-1};
+const int dx[] = {1,-1,0,0};
 const ll mod = 1e9+7;
 const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
-const ll INF = 1'000'000'000'000'000'000;
+const ll INF = 9'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
+ll dp[105][105][105];
 int main()
-{
-	int n;
+{	
+	ll n;
 	cin >> n;
-	vector<string> S(n);
-	rep(i,n) cin >> S[i];
-	mf_graph<int> g(n*n+2);
-	int s = n*n;
-	int t = s+1;
-	rep(i,n){
+	vector<ll> a(n);
+	rep(i,n) cin >> a[i];
+	// 1個以上選んで平均が整数になるものの数え上げ // Nが100
+	// k個選んで平均が整数になる->Sumが%k == 0
+	// dpであまりを持つ
+	// dp[i][j][k]:=i個選んで%jがkの物の数とか？
+	// 1個はどれもおｋ
+	ll ans = n;
+	dp[0][0][0] = 1;
+	// 初期化したい
+	For(i,2,n+1){
+		rep(x,105)rep(y,105)rep(z,105)dp[x][y][z]=0;
+		dp[0][0][0] = 1;
 		rep(j,n){
-			if((i+j)%2){
-				if(S[i][j] == 'B') S[i][j] = 'W';
-				else if(S[i][j] == 'W') S[i][j] = 'B';
-			}
-			if(S[i][j] == 'B'){
-				g.add_edge(i*n+j,t,inf);
-			}
-			if(S[i][j] == 'W'){
-				g.add_edge(s,i*n+j,inf);
-			}
-			rep(k,4){
-				int nx = i + dx[k];
-				int ny = j + dy[k];
-				if(nx < 0 || ny < 0|| nx >= n || ny >= n)continue;
-				g.add_edge(i*n+j,nx*n+ny,1);
+			ll num = a[j];
+			num %= i;
+			for(int k = 0; k <= i; k++){
+				rep(md,i){
+					dp[j+1][k+1][(md+num)%i] += dp[j][k][md];
+					dp[j+1][k][md] += dp[j][k][md];
+					dp[j+1][k+1][(md+num)%i] %= MOD;
+					dp[j+1][k][md] %= MOD;
+				}
 			}
 		}
+		ans += dp[n][i][0];
+		ans %= MOD;
 	}
-
-	cout << (n-1)*n + (n-1) * n - g.flow(s,t) << endl;
+	cout << ans << endl;
 }

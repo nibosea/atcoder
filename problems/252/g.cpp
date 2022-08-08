@@ -59,18 +59,8 @@ int main()
 			}
 		}
 	}
+	if(c[0] != 1){
+		cout << 0 << endl; 
+	} else 
 	cout << dp_tree[0][n-1].val() << endl;
-	rep(i,n){
-		rep(j,n){
-			cout << dp_tree[i][j].val() << " ";
-		}
-		cout << endl;
-	}
-	cout << "forest\n";
-	rep(i,n){
-		rep(j,n){
-			cout << dp_forest[i][j].val() << " ";
-		}
-		cout << endl;
-	}
 }

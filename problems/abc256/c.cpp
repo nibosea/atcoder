@@ -32,18 +32,40 @@ vector<int> to[200'005];
 //Write From this Line
 int main()
 {
-	map<int, int> mp;
-	int n;
-	while(cin >> n){
-		// 5*kノカタチで表現する
-		// 5k = n
-		// k = n/5
-		int k = (n+4)/5;
-		k *= 5;
-		mp[k]++;
+	vector<int> h(3);
+	rep(i,3) cin >> h[i];
+	vector<int> w(3);
+	rep(i,3) cin >> w[i];
+
+	// 全探索
+	vector<vector<int>> hw(3,vector<int>(3,0));
+	// まず h(3)が行ごとの結果を表しているので、行から考える
+	// 2行くらい決めたら残りは確定するんじゃね？ って考えたら、4マスの全探索だから、　３０＾４
+	ll ans = 0;
+	for(int h0 = 1; h0 <= h[0]-2; h0++){
+		hw[0][0] = h0;
+		for(int h1 = 1; h0 + h1 < h[0]; h1++){
+			hw[0][1] = h1;
+			hw[0][2] = h[0] - (h0+h1);
+			//もう一行同じことする
+			for(int ha0 = 1; ha0 <= h[1]-2; ha0++){
+				hw[1][0] = ha0;
+				for(int ha1 = 1; ha0 + ha1 < h[1]; ha1++){
+					hw[1][1] = ha1;
+					hw[1][2] = h[1] - (ha0+ha1);
+					int x = w[0] - hw[0][0] - hw[1][0];
+					int y = w[1] - hw[0][1] - hw[1][1];
+					int z = w[2] - hw[0][2] - hw[1][2];
+					hw[2][0] = x;
+					hw[2][1] = y;
+					hw[2][2] = z;
+					if(x+y+z != h[2]) continue;
+					if(x>=1&&y>=1&&z>=1){
+						ans++;
+					}
+				}
+			}
+		}
 	}
-	for(auto x:mp){
-		cout << x.first << endl;
-		//cout << x.second<< endl; 
-	}
+	cout << ans << endl;
 }

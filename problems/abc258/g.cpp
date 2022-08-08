@@ -21,8 +21,8 @@ void coA(){cout <<"Aoki"<<endl;}
 void mswap(ll &a, ll &b){ if(a >= b) swap(a,b); }
 void rswap(ll &a, ll &b){ if(a <= b) swap(a,b); }
 
-const int dy[] = {0,1,-1,0};
-const int dx[] = {1,0,0,-1};
+const int dy[] = {0,0,1,-1};
+const int dx[] = {1,-1,0,0};
 const ll mod = 1e9+7;
 const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
@@ -30,35 +30,27 @@ const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
+int a[3000][3000];
 int main()
 {
 	int n;
-	cin >> n;
-	vector<string> S(n);
-	rep(i,n) cin >> S[i];
-	mf_graph<int> g(n*n+2);
-	int s = n*n;
-	int t = s+1;
+	scanf("%d",&n);
+	char now[3000];
 	rep(i,n){
+		scanf("%s",now);
 		rep(j,n){
-			if((i+j)%2){
-				if(S[i][j] == 'B') S[i][j] = 'W';
-				else if(S[i][j] == 'W') S[i][j] = 'B';
-			}
-			if(S[i][j] == 'B'){
-				g.add_edge(i*n+j,t,inf);
-			}
-			if(S[i][j] == 'W'){
-				g.add_edge(s,i*n+j,inf);
-			}
-			rep(k,4){
-				int nx = i + dx[k];
-				int ny = j + dy[k];
-				if(nx < 0 || ny < 0|| nx >= n || ny >= n)continue;
-				g.add_edge(i*n+j,nx*n+ny,1);
+			if(now[j] == '1')a[i][j] = 1;
+		}
+	}
+	ll ans = 0;
+	rep(i,n){
+		For(j,i+1,n){
+			if(a[i][j]){
+				For(k,j+1,n){
+					if(a[i][k] && a[j][k])ans++;
+				}
 			}
 		}
 	}
-
-	cout << (n-1)*n + (n-1) * n - g.flow(s,t) << endl;
+	printf("%lld",ans);
 }

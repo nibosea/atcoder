@@ -27,23 +27,64 @@ const ll mod = 1e9+7;
 const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
-const ll INF = 1'000'000'000'000'000'000;
+const ll INF = 9'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
+
 int main()
 {
-	map<int, int> mp;
-	int n;
-	while(cin >> n){
-		// 5*kノカタチで表現する
-		// 5k = n
-		// k = n/5
-		int k = (n+4)/5;
-		k *= 5;
-		mp[k]++;
+	ll n, m;
+	cin >> n>> m;
+	deque<int> ans;
+	if(n == m){
+		rep(i,n){
+			cout << i + 1 << " ";
+		}
+		cout << endl;
+		return 0;
 	}
-	for(auto x:mp){
-		cout << x.first << endl;
-		//cout << x.second<< endl; 
+	rep(i,n){
+		ans.push_back(i+1);
+	}
+	while(true){
+		rep(i,n){
+			cout<< ans.front() <<" ";
+			ans.push_back(ans.front());
+			ans.pop_front();
+		}
+		cout << endl;
+		bool f = true;
+
+		// 次を求める
+		deque<int> deq;
+		while(true){
+			int num = ans.back();
+			ans.pop_back();
+			//どういうと木に次に行ける？
+			// numを+1出来る
+			puts("neko");
+			int sz = 0;
+			if(!deq.empty()) sz=deq.size();
+			if(num+1<=m-sz){
+				// +1して突っ込むその後、
+				ans.push_back(num+1);
+				while(!deq.empty()){
+					// ansのけつよりでかいのを入れる
+					deq.pop_front();
+					int neko = ans.back() + 1;
+					if(ans.back()+1 <= m){
+						ans.push_back(ans.back()+1);
+					} else {
+						f = false;
+						break;
+					}
+				}
+				break;
+			} else {
+				deq.push_front(num);
+			}
+			if(!f)break;
+		}
+		if(!f)break;
 	}
 }

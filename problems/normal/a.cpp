@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 
 using namespace std;
-using namespace atcoder;
 using ll = long long;
 typedef pair<int,int> P;
 #define SORT(a) sort((a).begin(),(a).end())
@@ -29,21 +27,52 @@ const double PI=3.14159265358979323846;
 const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
+vector<string> s;
 //Write From this Line
+bool seen[1000][1000];
+P mae[1000][1000];
+int h, w;
+void dfs(int x,int  y){
+	seen[x][y] = true;
+	rep(i,4){
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if(nx<0 || ny<0||nx>=h||ny>=w)continue;
+		if(seen[nx][ny]) continue;
+		if(s[nx][ny] == '#') continue;
+		mae[nx][ny] = P(x,y);
+		dfs(nx,ny);
+	}
+}
 int main()
 {
-	map<int, int> mp;
-	int n;
-	while(cin >> n){
-		// 5*kノカタチで表現する
-		// 5k = n
-		// k = n/5
-		int k = (n+4)/5;
-		k *= 5;
-		mp[k]++;
+	cin >> h>> w;
+	s.resize(h);
+	rep(i,h) cin >> s[i];
+	int sx, sy;
+	int gx, gy;
+	// set (sx,sy) (gx,gy);
+	rep(i,h){
+		rep(j,w){
+			if(s[i][j] == 's') {
+				sx = i, sy = j;
+			}
+			if(s[i][j] == 'g') {
+				gx = i, gy = j;
+			}
+		}
 	}
-	for(auto x:mp){
-		cout << x.first << endl;
-		//cout << x.second<< endl; 
+	dfs(sx,sy);
+	if(seen[gx][gy]){
+		coY();
+		int nowy = gy;
+		int nowx=  gx;
+		while(nowy != sy && nowy != sx){
+			printf("(%d,%d),",nowx,nowy);
+			nowx = mae[nowx][nowy].first;
+			nowy = mae[nowx][nowy].second;
+		}
 	}
+	else coN();
+
 }

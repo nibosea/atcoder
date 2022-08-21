@@ -30,23 +30,28 @@ const int inf = 1001001001;
 const ll INF = 1'000'000'000'000'000'000;
 vector<int> to[200'005];
 //Write From this Line
+int N, M;
+void dfs(vector<int> t){
+	if(t.size() == N){
+		// 数列の長さは満たしている
+		rep(i,N){
+			if(i!=0) cout << ' ';
+			cout << t[i];
+		}
+		cout << endl;
+		return;
+	}
+	int last = 0;
+	if(t.size()>0) last = t.back();
+	for(int i =last+1;i<=M;i++){
+		t.push_back(i);
+		dfs(t);
+		t.pop_back();
+	}
+}
 int main()
 {
-	int h, w;
-	cin >> h>> w;
-	vector<string> s(h);
-	rep(i,h) cin >> s[i];
-	int ans = 0;
-	For(i,1,h-1){
-		For(j,1,w-1){
-			int cnt = 0;
-			rep(k,4){
-				if(s[i+dx[k]][j+dy[k]] == '.') cnt++;
-			}
-			if(cnt ==2 || cnt == 4){
-				ans++;
-			}
-		}
-	}
-	cout << ans << endl;
+	cin >> N >> M;
+	vector<int> cur;
+	dfs(cur);
 }

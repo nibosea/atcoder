@@ -27,24 +27,12 @@ const ll mod = 1e9+7;
 const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
-const ll INF = 1'000'000'000'000'000'000;
+const ll INF = 9'000'000'000'000'000'000;
 vector<int> to[200'005];
-//Write From this Line
+/*Write Under this comment
+  ☆ 自☆ 由☆ 記☆ 述☆ 欄☆
+*/
 int main()
 {
-	string s = "NOITCELFER"; //0-indexed
-	int n = s.size();
-	for(int i = 0; i < 26; i++){ // 回す数シーザー暗号
-		debug(i);
-		for(int j=0; j<n; j++){
-			char c = s[j];
-			int num = c - 'A';
-			num -= i;
-			if(num < 0) num += 26;
-			num %= 26;
-			c = 'A' + num;
-			cout << c;
-		}
-		cout << endl;
-	}
+
 }

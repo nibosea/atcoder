@@ -34,5 +34,9 @@ vector<int> to[200'005];
 */
 int main()
 {
-
+	string s, t;
+	cin >> s>> t;
+	// is S Settouzi ? of T
+	if (s == t.substr(0,s.size())) coY();
+	else coN();
 }

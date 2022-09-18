@@ -34,5 +34,17 @@ vector<int> to[200'005];
 */
 int main()
 {
-
+	int n, m;
+	cin >> n>> m;
+	vector<string> s(n);
+	rep(i,n) cin >> s[i];
+	vector<string> t(m);
+	rep(i,m) cin >> t[i];
+	int mi = 3, Ma = 16;
+	vector<int> ar(n);
+	iota(ar.begin(),ar.end(), 0);
+	do {
+		for(auto x: ar) cout << x  << " ";
+		cout << endl;
+	} while(next_permutation(ar.begin(),ar.end()));
 }

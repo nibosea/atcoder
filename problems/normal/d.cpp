@@ -27,29 +27,12 @@ const ll mod = 1e9+7;
 const ll MOD = 998244353;
 const double PI=3.14159265358979323846;
 const int inf = 1001001001;
-const ll INF = 1'000'000'000'000'000'000;
+const ll INF = 9'000'000'000'000'000'000;
 vector<int> to[200'005];
-//Write From this Line
+/*Write Under this comment
+  ☆ 自☆ 由☆ 記☆ 述☆ 欄☆
+*/
 int main()
 {
-	ll n, x;
-	cin >> n>> x;
-	string s;
-	cin >> s;
-	deque<char> q;
-	rep(i,n){
-		if(s[i] == 'U'){
-			if(!q.empty()) q.pop_back();
-			else x /= 2;
-		}
-		else {
-			q.push_back(s[i]);
-		}
-	}
-	while(!q.empty()){
-		char c = q.front(); q.pop_front();
-		x *= 2;
-		if(c=='R') x += 1;
-	}
-	cout << x << endl;
+
 }

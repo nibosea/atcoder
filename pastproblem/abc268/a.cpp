@@ -34,5 +34,9 @@ vector<int> to[200'005];
 */
 int main()
 {
-
+	vector<int> a(5);
+	rep(i,5) cin >> a[i];
+	SORT(a);
+	a.erase(unique(a.begin(),a.end()),a.end());
+	cout << a.size() << endl;
 }

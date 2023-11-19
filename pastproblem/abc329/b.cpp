@@ -34,5 +34,19 @@ vector<int> to[200'005];
 */
 int main()
 {
-
+  int n;
+  cin >> n;
+  vector<int> a(n);
+  rep(i,n) cin >> a[i];
+  SORT(a);
+  int M = a[n-1];
+  REV(a);
+  int ans = 0;
+  rep(i,n){
+    if (a[i] != M){
+      ans = a[i];
+      cout << ans << endl;
+      return 0;
+    }
+  }
 }

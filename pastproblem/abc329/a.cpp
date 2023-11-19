@@ -34,5 +34,12 @@ vector<int> to[200'005];
 */
 int main()
 {
-
+  string s;
+  cin >> s;
+  rep(i,s.size()){ 
+    cout << s[i];
+    if (i != s.size()-1) {
+      cout << " ";
+    }
+  }
 }

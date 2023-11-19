@@ -15,5 +15,7 @@
         "regex": "cpp",
         "valarray": "cpp",
         "all": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled",
+    "C_Cpp.default.compilerPath": "c:\\Users\\kinch\\work\\atcoder\\hidden\\stdc++.h"
 }

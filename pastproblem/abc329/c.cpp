@@ -34,5 +34,23 @@ vector<int> to[200'005];
 */
 int main()
 {
-
+  int n;
+  cin >> n;
+  string s;
+  cin >> s;
+  map<char,int> mp;
+  int ren = 0;
+  char bef = 'A';
+  rep(i,n){
+    if(bef == s[i]) ren++;
+    else ren = 1;
+    bef = s[i];
+    chmax(mp[bef], ren);
+  }
+  int ans = 0;
+  rep(i,26){
+    char c = 'a' + i;
+    ans += mp[c];
+  }
+  cout << ans << endl;
 }

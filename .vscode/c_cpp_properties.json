@@ -4,15 +4,14 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                //"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.25.28610/include/bits/*",
-                "C:/Users/kinch/work/atcoder/hidden"
+                "C:/Windows/WinSxS/amd64_microsoft-windows-bits-perf-v1-counters_31bf3856ad364e35_10.0.22621.1_none_c36b402e4172a62b/"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "/usr/bin/gcc",
+            //"compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu17",
             "cppStandard": "gnu++17",
             "intelliSenseMode": "linux-gcc-x64"
